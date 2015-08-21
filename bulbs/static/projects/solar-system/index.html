@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+	<head>
+		<title>My first Three.js app</title>
+		<style>
+			body { margin: 0 }
+			canvas { width: 100%; height: 100% }
+		</style>
+        
+		<script id="fragmentShader" type="x-shader/x-fragment">
+
+			uniform float time;
+			uniform vec2 resolution;
+
+			uniform float fogDensity;
+			uniform vec3 fogColor;
+
+			uniform sampler2D texture1;
+			uniform sampler2D texture2;
+
+			varying vec2 vUv;
+
+			void main( void ) {
+
+				vec2 position = -1.0 + 2.0 * vUv;
+
+				vec4 noise = texture2D( texture1, vUv );
+				vec2 T1 = vUv + vec2( 1.5, -1.5 ) * time  *0.02;
+				vec2 T2 = vUv + vec2( -0.5, 2.0 ) * time * 0.01;
+
+				T1.x += noise.x * 2.0;
+				T1.y += noise.y * 2.0;
+				T2.x -= noise.y * 0.2;
+				T2.y += noise.z * 0.2;
+
+				float p = texture2D( texture1, T1 * 2.0 ).a;
+
+				vec4 color = texture2D( texture2, T2 * 2.0 );
+				vec4 temp = color * ( vec4( p, p, p, p ) * 2.0 ) + ( color * color - 0.1 );
+
+				if( temp.r > 1.0 ){ temp.bg += clamp( temp.r - 2.0, 0.0, 100.0 ); }
+				if( temp.g > 1.0 ){ temp.rb += temp.g - 1.0; }
+				if( temp.b > 1.0 ){ temp.rg += temp.b - 1.0; }
+
+				gl_FragColor = temp;
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				const float LOG2 = 1.442695;
+				float fogFactor = exp2( - fogDensity * fogDensity * depth * depth * LOG2 );
+				fogFactor = 1.0 - clamp( fogFactor, 0.0, 1.0 );
+
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+
+		<script id="vertexShader" type="x-shader/x-vertex">
+
+			uniform vec2 uvScale;
+			varying vec2 vUv;
+
+			void main()
+			{
+
+				vUv = uvScale * uv;
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+        
+        
+	</head>
+	<body>
+    
+    
+    
+    
+		<script type="text/javascript" src="../../js/three.js/three.min.js"></script>
+        
+        
+		<script src="../../js/three.js/shaders/ConvolutionShader.js"></script>
+		<script src="../../js/three.js/shaders/CopyShader.js"></script>
+		<script src="../../js/three.js/shaders/FilmShader.js"></script>
+
+		<script src="../../js/three.js/postprocessing/EffectComposer.js"></script>
+		<script src="../../js/three.js/postprocessing/ShaderPass.js"></script>
+		<script src="../../js/three.js/postprocessing/MaskPass.js"></script>
+		<script src="../../js/three.js/postprocessing/RenderPass.js"></script>
+		<script src="../../js/three.js/postprocessing/BloomPass.js"></script>
+		<script src="../../js/three.js/postprocessing/FilmPass.js"></script>
+		<script src="../../js/three.js/Detector.js"></script>
+		<script src="../../js/three.js/libs/stats.min.js"></script>        
+        
+        <script type="text/javascript" src="../../js/three.js/controls/OrbitControls.js"></script>
+        <script type="text/javascript">
+            var Planet = function(radius, segments, material) {
+                this.radius = radius
+                this.segments = segments
+                
+                var geometry = new THREE.SphereGeometry(radius, segments, segments);
+                this.mesh = new THREE.Mesh(geometry, material);
+            }
+        
+            var Star = function(radius, segments) {
+                this.radius = radius;
+                this.segments = segments;
+                
+                uniforms = {
+                    fogDensity: { type: "f", value: 0 },
+                    fogColor: { type: "v3", value: new THREE.Vector3(0, 0, 0) },
+                    time: { type: "f", value: 1.0 },
+                    resolution: { type: "v2", value: new THREE.Vector2() },
+                    uvScale: { type: "v2", value: new THREE.Vector2(3.0, 4.0 )},
+                    texture1: { type: "t", value: THREE.ImageUtils.loadTexture("../../js/three.js/textures/lava/cloud.png") },
+                    texture2: { type: "t", value: THREE.ImageUtils.loadTexture("../../js/three.js/textures/lava/lavatile.jpg") }
+                };
+                
+                uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = THREE.RepeatWrapping;
+                uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = THREE.RepeatWrapping;
+                
+                var material = new THREE.ShaderMaterial({
+                    uniforms: uniforms,
+                    vertexShader: document.getElementById("vertexShader").textContent,
+                    fragmentShader: document.getElementById("fragmentShader").textContent
+                });
+                
+                this.mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, segments), material);                
+            }
+        </script>
+        
+		<script type="text/javascript">
+            var clock = new THREE.Clock();
+			var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(
+                75, 
+                window.innerWidth / window.innerHeight,
+                0.1, // objects closer than value will not be rendered
+                1000 // objects farther than value will not be rendered
+            );
+            
+            var renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            renderer.autoClear = false;
+            
+            // camera settings
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.minDistance = 7;
+            controls.maxDistance = 9000;
+            
+            camera.position.z = 10;
+
+            // creation of celestial bodies in solar system
+            var sun = new Star(5, 64).mesh;
+            scene.add(sun);
+
+            
+            // mercury flight path
+            var geometry = new THREE.TorusGeometry(13, 0.02, 16, 100);
+            var material = new THREE.MeshBasicMaterial({color: "#ddf"});
+            var torus = new THREE.Mesh(geometry, material);
+            torus.rotation.x = 1.56;
+            scene.add(torus);
+            
+            
+            
+            // Mercury
+            var mercuryMaterial = new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture("mercury.png")
+            });
+            
+            var mercury = new Planet(0.70, 64, mercuryMaterial).mesh;
+            scene.add(mercury);
+            
+            var mPivot = new THREE.Object3D();
+            mPivot.rotation.z = 0;
+            mercury.add(mPivot);
+            
+            var orbitMercury = new Planet(0.70, 64, mercuryMaterial).mesh;
+            orbitMercury.position.x = 13;
+            mPivot.add(orbitMercury);
+            
+            // Venus
+            var venusMaterial = new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture("venus.png")
+            });
+            
+            var venus = new Planet(1, 64, venusMaterial).mesh;
+            scene.add(venus);
+            
+            var vPivot = new THREE.Object3D();
+            vPivot.rotation.z = 0;
+            venus.add(vPivot);
+            
+            var orbitVenus = new Planet(1, 64, venusMaterial).mesh;
+            orbitVenus.position.x = 19;
+            vPivot.add(orbitVenus);
+            
+            // Earth
+            var earthMaterial = new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture("earth.jpg")
+            });
+            
+            var earth = new Planet(1, 64, earthMaterial).mesh;
+            scene.add(earth);
+            
+            var ePivot = new THREE.Object3D();
+            ePivot.rotation.z = 0;
+            earth.add(ePivot);
+            
+            var orbitEarth = new Planet(1, 64, earthMaterial).mesh;
+            orbitEarth.position.x = 26;
+            ePivot.add(orbitEarth);
+            
+            // Mars
+            var marsMaterial = new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture("mars.jpg")
+            });
+            
+            var mars = new Planet(1.15, 64, marsMaterial).mesh;
+            scene.add(mars);
+            
+            var marsPivot = new THREE.Object3D();
+            marsPivot.rotation.z = 0;
+            mars.add(marsPivot);
+            
+            var orbitMars = new Planet(1.15, 64, marsMaterial).mesh;
+            orbitMars.position.x = 33;
+            marsPivot.add(orbitMars);
+            
+            // Jupiter
+            var jupiterMaterial = new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture("jupiter.jpg")
+            });
+            
+            var jupiter = new Planet(1.98, 64, jupiterMaterial).mesh;
+            scene.add(jupiter);
+            
+            var jPivot = new THREE.Object3D();
+            jPivot.rotation.z = 0;
+            jupiter.add(jPivot);
+            
+            var orbitJupiter = new Planet(1.98, 64, jupiterMaterial).mesh;
+            orbitJupiter.position.x = 44;
+            jPivot.add(orbitJupiter);
+            
+            // sun animations
+            var renderModel = new THREE.RenderPass( scene, camera );
+            var effectBloom = new THREE.BloomPass( 0.55 );
+            var effectFilm = new THREE.FilmPass( 0.35, 0.95, 2048, false );
+
+            effectFilm.renderToScreen = true;
+
+            composer = new THREE.EffectComposer( renderer );
+
+            composer.addPass( renderModel );
+            composer.addPass( effectBloom );
+            composer.addPass( effectFilm );
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                mercury.rotation.y += 0.01;
+                venus.rotation.y += 0.007;
+                earth.rotation.y += 0.005;
+                mars.rotation.y += 0.0043;
+                jupiter.rotation.y += 0.0031;
+                
+                render();
+            }
+            
+            function render() {
+                var delta = 5 * clock.getDelta();
+                
+                uniforms.time.value += 0.2 * delta;
+                
+                renderer.clear();
+                composer.render(0.01);
+            }
+            
+            
+            /*function render() {
+                var delta = 5 * clock.getDelta();
+                
+                uniforms.time.value += 0.2 * delta;
+                
+                
+                
+                requestAnimationFrame(render);
+                renderer.render(scene, camera);
+                parent.rotation.y += 0.01;
+            }*/
+            
+            animate();
+		</script>
+	</body>
+</html>

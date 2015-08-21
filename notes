@@ -1,0 +1,30 @@
+to do:
+    1. insure the user is authorized when doing stuff in the admin panel
+    2. fix case sensitive usernames
+    3. change how forums are organized. instead of just randomly, sort them from a sorting rank variable in the database. lowest number at top, highest number at bottom
+    4. instead of utilizing postgresql's pgcrypto extension, do the encryption in the application, safer and it can be a hassle to setup pgcrypto for noobs (or maybe they are using a shared db or some shit and can't, i know you have to run a custom instance of postgresql on webfaction in order for you to use extensions)
+     
+
+
+
+--
+if you get the error:
+
+ERROR:  could not open extension control file "/usr/local/share/postgresql/extension/pgcrypto.control": No such file or directory
+
+you do not have the pgcrypto extension installed
+
+
+serious:
+   home.mako template is missing
+ --
+ 
+ 
+ --  
+psycopg2.ProgrammingError: function decrypt(bytea, unknown, unknown) does not exist
+LINE 1: SELECT convert_from(decrypt(password, 'close but no guitar',...
+                            ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+-- solution = create the pgcrypto extension
+
+ # auto generate an encryption key at installation and store it in a seperate file

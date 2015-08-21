@@ -1,0 +1,6 @@
+pyramid
+pyramid_mako
+pyramid_debugtoolbar
+waitress
+pyramid_beaker
+psycopg2

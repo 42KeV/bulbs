@@ -1,0 +1,17 @@
+$(function() {
+    var index;
+    var colour;
+    
+    window.setInterval(function() {
+        index++;
+        
+        if (index % 2 == 0) {
+            colour = "black";
+        } else {
+            colour = "red";
+        }
+        
+        $("#wereback").animate("color", colour);
+    }, 1000);
+    
+});

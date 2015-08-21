@@ -1,0 +1,2 @@
+include CHANGES.txt *.ini *.cfg *.rst *.md
+recursive-include bulbs *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml

@@ -1,0 +1,226 @@
+body {
+    background-color: #fff;
+    padding-top: 15px;
+}
+
+.cat-name {
+    text-align: center;
+    background-color: #fff;
+    font-size: 18px;
+    color: #333;
+}
+
+.seperator {
+    width: 95%; padding: 5px; margin: auto;
+}
+
+.subcat {
+    padding: 10px;
+    background-color: #fff;
+}
+
+.subcat-name > a {
+    font-size: 21px;
+}
+
+.forum-nav {
+    bottom: 0;
+}
+
+.post-options {
+    padding: 0;
+}
+
+.post-options > .button {
+    float: right;
+    margin-bottom: 0;
+}
+
+.post-user > span {
+    display: block;
+}
+
+.post-title {
+    font-weight: bold;
+}
+
+.poster-avatar {
+    height: 120px;
+    width: 120px;
+}
+
+.subcat-stats > span {
+    display: block;
+}
+
+.subcat-title {
+    display: block;
+}
+
+.post-container {
+    padding: 2px;
+}
+
+.post-container:nth-of-type(2n) {
+    background-color: #eef;
+    border-top: 1px solid #ddf;
+    border-bottom: 1px solid #ddf;
+}
+
+/*.container {
+    width: 95%;
+    padding: 15px;
+    margin: auto;
+}
+
+body {
+    background-color: #fff;
+    background-repeat: repeat;
+}
+
+.subcat-title {
+    padding-left: 5px;
+}
+
+.subcat-desc {
+    padding-left: 5px;
+}
+
+.subcat-stats {
+
+}
+
+.subcat-last {
+
+}
+
+.subcat:not(:last-child) {
+    border: 1px solid #ddd;
+    background-color: #E0E4CC;
+}
+
+
+.subcat:not(:last-child) {
+    border-bottom: 1px solid #cccccc;
+}
+
+.subcat {
+    background-color: #eee;
+    padding: 5px;
+}
+
+.topic {
+    padding: 5px;
+}
+
+.category-header {
+    font-weight: bold;
+    padding: 2px;
+    background-image: url(http://subtlepatterns.com/patterns/congruent_pentagon.png);
+    color: #4A4A4A;
+    border-bottom: 1px solid #bbb;
+}
+
+.topic-header {
+    padding: 2px;
+    background-image: url(http://subtlepatterns.com/patterns/congruent_pentagon.png);
+    color: #4A4A4A;
+    font-weight: bold;
+    border-bottom: 1px solid #bbb;
+}
+
+.thread-post {
+    background-color: #eef;
+    position: relative;
+    border: 1px solid #bbb;
+}
+
+footer > .panel {
+    margin-top: 10px;
+}
+
+.dark-border {
+    border: 1px solid #cccccc;
+}
+
+.topic:nth-child(2) {
+    background-color: red;
+}
+
+/*thread post display props
+
+.post-meta > span {
+    display: block;
+    text-align: center;
+}
+
+.thread-post {
+    position: relative;
+
+}
+
+.post-username {
+    font-weight: bold;
+    background-color: #f4f4f4;
+    border-radius: 25px 25px 500px 500px;
+    
+    box-sizing: border-box;
+    border-left:1px solid #ddf;
+    border-bottom:1px solid #ddf;
+    border-right:1px solid #ddf;
+    
+}
+
+.post-title {
+    font-weight: bold;
+    padding-left: 12px;
+}
+
+/*.post-title {
+    width: 100%;
+    position: relative;
+    top: 0;
+    padding: 3px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #669999;
+    color: #eef;
+    border-radius: 0 0 5px 5px;
+}
+
+.post-options > .button {
+    margin-bottom: 5px;
+}
+
+.post-body {
+    word-wrap: break-word;
+}
+
+/*.post-header {
+    background-color: #669999;
+    color: #eef;
+}*/
+
+/*.post-header {
+    border-radius: 25px 0 0 500px;
+    padding-left: 20px;
+    
+    
+    box-sizing: border-box;
+    border-left:1px solid #ddf;
+    border-bottom:1px solid #ddf;
+}
+.post-body {
+    padding-left: 20px;
+}
+
+.thread-post {
+    min-height: 150px;
+}
+
+.post-header {
+    background-image: url("http://subtlepatterns.com/patterns/congruent_pentagon.png");
+    border-right: 1px solid #bbb;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+}*/
