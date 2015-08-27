@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>${project} - ${title}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/foundation.min.css')}">
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/custom.css')}">
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/normalize.css')}">
@@ -53,6 +54,10 @@
                 padding-right: 2em;
             }
             
+            .button.secondary.active {
+                background-color: #D2D2D2;
+            }
+            
         </style>
 
     </head>
@@ -61,8 +66,12 @@
         <div class="container">
             <div class="row">
                 <nav>
-                    <div class="large-12 columns text-center">
-                        <h1>Administrator Control Panel</h1>
+                    <div class="large-6 columns">
+                        <h1 style="margin: 0">Administrator Control Panel</h1>
+                    </div>
+                    
+                    <div class="large-6 columns text-right">
+                        <a style="bottom: 0" class="button" href="../">Return to forum home</a>
                     </div>
                 </nav>
             </div>
@@ -71,15 +80,36 @@
 
             </style>
             
-            <div class="large-12 columns">
-                <ul class="button-group even-6">
-                    <li><a class="button secondary" href="/admin">Home</a></li>
-                    <li><a class="button secondary" href="/admin">Structure</a></li>
-                    <li><a class="button secondary" href="/admin">Users</a></li>
-                    <li><a class="button secondary" href="/admin">Settings</a></li>
-                    <li><a class="button secondary" href="/admin">Groups</a></li>
-                    <li><a class="button secondary" href="/admin">Add-ons</a></li>
-                </ul>
+            <div class="icon-bar six-up">
+                <a class="item" href="/admin">
+                    <i class="fa fa-home"></i>
+                    <label>Home</label>
+                </a>
+                
+                <a class="item" href="admin/structure">
+                    <i class="fa fa-building-o"></i>
+                    <label>Structure</label>
+                </a>
+                
+                <a class="item">
+                    <i class="fa fa-users"></i>
+                    <label>Users</label>
+                </a>
+                
+                <a class="item">
+                    <i class="fa fa-cog"></i>
+                    <label>Settings</label>
+                </a>
+                
+                <a class="item">
+                    <i class="fa fa-home"></i>
+                    <label>Groups</label>
+                </a>
+                
+                <a class="item">
+                    <i class="fa fa-plus"></i>
+                    <label>Add-ons</label>
+                </a>
             </div>
         </div>
         

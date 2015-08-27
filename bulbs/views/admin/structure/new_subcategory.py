@@ -15,7 +15,7 @@ def catinfo(data):
     
     return dict(keys_values)
 
-@view_config(route_name="admin_new_subcategory", renderer="admin/new-subcategory.mako")
+@view_config(route_name="admin_struct_new_subcategory", renderer="admin/structure/new-subcategory.mako")
 def main(request):
     cursor = connection.con.cursor()
     cursor.execute("SELECT id, title FROM bulbs_category")

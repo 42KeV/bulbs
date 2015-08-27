@@ -1,4 +1,4 @@
-<%inherit file="base.mako"/>
+<%inherit file="../base.mako"/>
 
 <div class="row">
     <section class="large-12 columns action-info">
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="large-6 columns">
             <label>Name
-                <input type="text" name="catname"/>
+                <input type="text" name="subcatname"/>
             </label>
         </div>
     </div>
@@ -18,16 +18,27 @@
     <div class="row">
         <div class="large-6 columns">
             <label>Description
-                <input type="text" name="catdesc"/>
+                <input type="text" name="subcatdesc"/>
             </label>
         </div>
     </div>
     
+    <div class="row">
+        <div class="large-6 columns">
+            <label>Category
+                <select name="catid">
+                    % for category in categories:
+                        <option value="${category.get('id')}">${category.get("title")}</option>
+                    % endfor
+                </select>
+            </label>
+        </div>
+    </div>
     
     <div class="row">
         <div class="large-6 columns">
             <label>Sorting rank
-                <input type="text" name="catrank"/>
+                <input type="text" name="subcatrank"/>
             </label>
         </div>
     </div>

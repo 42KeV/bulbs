@@ -9,7 +9,7 @@ def future_category_id(cursor):
 
     return future_id
 
-@view_config(route_name="admin_new_category", renderer="admin/new-category.mako")
+@view_config(route_name="admin_struct_new_category", renderer="admin/structure/new-category.mako")
 def main(request):
     
     if request.method == "POST":

@@ -28,10 +28,14 @@ def main(global_config, **settings):
     config.add_route('manage', '/manage')
     config.add_route('post_edit', '/edit')
     
+    # admin panel routes
     config.add_route('admin_home', '/admin')
-    config.add_route('admin_new_category', 'admin/create-new-category')
-    config.add_route('admin_new_subcategory', 'admin/create-new-subcategory')
     config.add_route('admin_login', '/admin/login')
+    
+    # - admin structure management routes
+    config.add_route('admin_struct_home', '/admin/structure')
+    config.add_route('admin_struct_new_category', 'admin/structure/create-new-category')
+    config.add_route('admin_struct_new_subcategory', 'admin/structure/create-new-subcategory')
     
     config.add_route('user_view', '/user/{username}')
     config.add_route('new-topic', '/{cat_slug}/{subcat_slug}/posting-new')
