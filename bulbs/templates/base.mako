@@ -15,13 +15,57 @@
                 is_logged_in = False
         %>
 
+        <style>
+            .row-background:nth-child(even) {
+                background-color: #F3EBF8;
+                
+            }
+            
+            .row-background {
+                -webkit-transition: background-color 500ms ease;
+                -moz-transition: background-color 500ms ease;
+                -o-transition: background-color 500ms ease;
+                -ms-transition: background-color 500ms ease;
+                transition: background-color 500ms ease;
+            }
+            
+            .subcat {
+                -webkit-transition: background-color 500ms ease;
+                -moz-transition: background-color 500ms ease;
+                -o-transition: background-color 500ms ease;
+                -ms-transition: background-color 500ms ease;
+                transition: background-color 500ms ease;
+            }
+            
+            .subcat:hover {
+                background-color: #F9F9F9;
+            }
+            
+            .row-background:hover {
+                background-color: #DFD6E4;
+            }
+            
+            .subcat-active {
+                background-color: #DFD6E4;
+            }
+            
+            .gray-border {
+                border: 1px solid red;
+            }
+            
+            .post-container {
+                padding-right: 2em;
+            }
+            
+        </style>
+
     </head>
     
     <body>
         <div class="container">
             <div class="row">
                 <nav>
-                    <div class="large-6 columns">
+                    <div class="large-5 columns">
                         <h1 style="margin: 0">${project}</h1>
                         % if is_logged_in:
                             <p>Logged in as ${ident.username}</p>
@@ -30,19 +74,23 @@
                         % endif
                     </div>
                     
-                    <ul class="button-group right">
-                        <li><a href="/" class="button">Home</a></li>
-                        
-                        % if is_logged_in:
-                            % if ident.group_id == 3:
-                                <li><a href="/admin" class="button">Admin CP</a></li>
+                    
+                    <div class="large-7 columns">
+                        <ul class="button-group round right">
+                            <li><a href="/" class="button small secondary gray-border">Home</a></li>
+                            
+                            % if is_logged_in:
+                                % if ident.group_id == 3:
+                                    <li><a href="/admin" class="button secondary small gray-border">Admin CP</a></li>
+                                % endif 
+                                <li><a href="/usercp" class="button secondary small gray-border">User CP</a></li>
+                                <li><a href="/inbox" class="button secondary small gray-border">Inbox</a></li>
+                                <li><a href="/logout" class="button secondary small gray-border">Sign out</a></li>
+                            % else:
+                                <li><a href="/login" class="button secondary small gray-border">Sign in</a></li>
                             % endif
-                            <li><a href="/inbox" class="button">Inbox</a></li>
-                            <li><a href="/logout" class="button">Sign out</a></li>
-                        % else:
-                            <li><a href="/login" class="button">Sign in</a></li>
-                        % endif
-                    </ul>
+                        </ul>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -58,8 +106,6 @@
         <script>
             $(document).foundation();
         </script>     
-        
-        <hr class="seperator">
         
         <footer style="bottom:0;width:100vw;">
             <div class="large-12 medium-12 text-center columns">

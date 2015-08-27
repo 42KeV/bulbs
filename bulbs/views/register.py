@@ -24,11 +24,12 @@ def main(request):
         password2 = request.params.get("password2")
         email = request.params.get("email")
         
+        cursor = connection.con.cursor()
+        
         if username_taken(cursor, username):
             return Response("username already exists. please choose a different one.")
 
         if password1 == password2:
-            cursor = connection.con.cursor()
             cursor.execute(
                 "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title) \
                 VALUES (%s, encrypt(%s, 'close but no guitar', 'aes'), %s, %s, now(), %s, %s)",

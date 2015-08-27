@@ -15,6 +15,7 @@ def main(request):
         if auth.get("success"):
             request.session["identity"] = auth.get("session")
             url = request.route_url("home")
+            
             return HTTPFound(location=url)
     
     session = request.session

@@ -1,6 +1,7 @@
 from bulbs.resources import helpers
 from bulbs.resources import connection
 from pyramid.view import view_config
+from pyramid.response import Response
 from itertools import chain
 
 
@@ -97,7 +98,7 @@ def main(request):
     return {
         'project': request.registry.settings.get("site_name"),
         'title': topic_title,
-        'slugs': slug,
+        'slug': slug,
         'topic_id': thread_id,
         'subcat_name': subcategory_title,
         'session': request.session,

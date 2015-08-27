@@ -7,8 +7,53 @@
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/normalize.css')}">
 
         <%
-            is_logged_in = True if request.session.get("user") is not None else False
+            ident = request.session.get("identity") or False  
+            
+            if ident:
+                is_logged_in = True
+            else:
+                is_logged_in = False
         %>
+
+        <style>
+            .row-background:nth-child(even) {
+                background-color: #F3EBF8;
+                
+            }
+            
+            .row-background {
+                -webkit-transition: background-color 500ms ease;
+                -moz-transition: background-color 500ms ease;
+                -o-transition: background-color 500ms ease;
+                -ms-transition: background-color 500ms ease;
+                transition: background-color 500ms ease;
+            }
+            
+            .subcat {
+                -webkit-transition: background-color 500ms ease;
+                -moz-transition: background-color 500ms ease;
+                -o-transition: background-color 500ms ease;
+                -ms-transition: background-color 500ms ease;
+                transition: background-color 500ms ease;
+            }
+            
+            .subcat:hover {
+                background-color: #F9F9F9;
+            }
+            
+            .row-background:hover {
+                background-color: #DFD6E4;
+            }
+            
+            .subcat-active {
+                background-color: #DFD6E4;
+            }
+            
+            .post-container {
+                padding-right: 2em;
+            }
+            
+        </style>
 
     </head>
     
@@ -16,41 +61,43 @@
         <div class="container">
             <div class="row">
                 <nav>
-                    <div class="large-6 columns">
-                        <h1 style="margin: 0">Free Games Forum Admin CP</h1>
-                         % if is_logged_in:
-                            <p>Logged in as ${request.session.get("user").get("username")}</p>
-                        % endif
+                    <div class="large-12 columns text-center">
+                        <h1>Administrator Control Panel</h1>
                     </div>
-                    
-                    <ul class="button-group right">
-                        <li><a href="/" class="button">Home</a></li>
-                        
-                        % if is_logged_in:
-                            <li><a href="/inbox" class="button">Inbox</a></li>
-                            <li><a href="/logout" class="button">Sign out</a></li>
-                        % else:
-                            <li><a href="/login" class="button">Sign in</a></li>
-                        % endif
-                    </ul>
                 </nav>
+            </div>
+            
+            <style>
+
+            </style>
+            
+            <div class="large-12 columns">
+                <ul class="button-group even-6">
+                    <li><a class="button secondary" href="/admin">Home</a></li>
+                    <li><a class="button secondary" href="/admin">Structure</a></li>
+                    <li><a class="button secondary" href="/admin">Users</a></li>
+                    <li><a class="button secondary" href="/admin">Settings</a></li>
+                    <li><a class="button secondary" href="/admin">Groups</a></li>
+                    <li><a class="button secondary" href="/admin">Add-ons</a></li>
+                </ul>
             </div>
         </div>
         
-        <div class="container">
+        <section class="child-content">
             ${self.body()}
-        </div>
+        </section>
         
         <script src="${request.static_url('bulbs:static/js/vendor/jquery.js')}"></script>
+        <script src="${request.static_url('bulbs:static/js/custom.js')}"></script>
         <script src="${request.static_url('bulbs:static/js/foundation.min.js')}"></script>
         
         <script>
             $(document).foundation();
         </script>     
         
-        <footer class="row">
-            <div class="small-12 columns">
-                <p class="subheader text-center">Copyright &copy; ${project} 2015 | Powered by <a href="https://github.com/galileo94/bulbs">Bulbs</a></p>
+        <footer style="bottom:0;width:100vw;">
+            <div class="large-12 medium-12 text-center columns">
+                <p class="subheader">Powered by <a href="https://github.com/galileo94/bulbs">Bulbs</a></p>
             </div>
         </footer>
            

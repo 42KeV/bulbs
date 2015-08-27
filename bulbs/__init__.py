@@ -24,7 +24,7 @@ def main(global_config, **settings):
     config.add_route('logout', '/logout')
     config.add_route('contact', '/contact')
     config.add_route('about', '/about')
-    config.add_route('profile', '/profile')
+    config.add_route('usercp', '/usercp')
     config.add_route('manage', '/manage')
     config.add_route('post_edit', '/edit')
     
@@ -35,11 +35,11 @@ def main(global_config, **settings):
     
     config.add_route('user_view', '/user/{username}')
     config.add_route('new-topic', '/{cat_slug}/{subcat_slug}/posting-new')
+    config.add_route('new-reply', '/{cat_slug}/{subcat_slug}/{topic_slug}/replying-to/{post_id}')
+    
+    config.add_route('category', '/{cat_slug}')
     config.add_route('subcategory', '/{cat_slug}/{subcat_slug}')
     config.add_route('topic', '/{cat_slug}/{subcat_slug}/{topic_slug}')
-    config.add_route('new-reply', '/{cat_slug}/{subcat_slug}/{topic_slug}/replying-to/{post_id}')
-    config.add_route('category', '/{cat_slug}')
-    
     #config.add_view(error_view, renderer='error.mako', context=NotFound)
     #config.add_view(unauthorized_view, renderer='unauthorized.mako', context=Unauthorized)
     

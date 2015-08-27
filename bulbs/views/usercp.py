@@ -1,15 +1,24 @@
 from pyramid.view import view_config
+from pyramid.response import Response
 
 
-@view_config(route_name="profile", renderer="user_cp.mako")
+@view_config(route_name="usercp", renderer="user-cp.mako")
 def main(request):
-    login_state = request.session.get("login_state")
+    ident = request.session.get("identity")
     
-    if login_state is None:
-        return Response("You are not authorized to view this page")
+    print (ident)
+    print (ident.is_authorized())
+    
+    
+    if ident is None or not ident.is_authorized():
+        return Response("You are not authorized to view this page. Please login to continue")
+    
+    #if ident is not None:
+    #    if not ident.is_authorized():
+    #        return Response("You are not authorized to view this page. Please login to continue")
     
     if request.method == "POST":            
-        username = request.session.get("user")["username"]
+        username = ident.username
         real_name = request.params.get("name")
         city = request.params.get("city")
         state = request.params.get("state")
@@ -44,7 +53,5 @@ def main(request):
             
     return {
         "project": request.registry.settings.get("site_name"),
-        "page_title": "User CP",
-        "is_logged_in": login_state,
-        "username": request.session.get("user")["username"]
+        "title": "User CP"
     }

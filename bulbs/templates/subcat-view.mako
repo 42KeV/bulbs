@@ -27,7 +27,7 @@
         <div class="small-4 columns">
             % if request.session.get("identity") is not None:
                 <div class="right">
-                    <a href="${slugs['subcat']}/posting-new" class="button small">Post topic</a>
+                    <a href="${slugs.get('subcat')}/posting-new" class="button small">Post topic</a>
                     <a href="#" class="button small">Post poll</a>
                 </div>
             % endif
@@ -38,30 +38,32 @@
 
     % for thread in threads:
         <% lastpost = thread.get("last_post") %>
-        
-        <div class="category">
-            <div class="topic subcat row">
-            
-                <div class="medium-7 columns">
-                    <div class="subcat-title">
-                        <a href="${slugs['subcat']}/${thread.get('slug')}">${thread.get("title")}</a> <br>
-                        Created by <a href="#">${thread.get("author")}</a>
+       
+        <div class="row-background">
+            <div class="category">
+                <div class="topic subcat row">
+                
+                    <div class="medium-7 columns">
+                        <div class="subcat-title">
+                            <a href="${slugs['subcat']}/${thread.get('slug')}">${thread.get("title")}</a> <br>
+                            Created by <a href="#">${thread.get("author")}</a>
+                        </div>
                     </div>
+                    
+                    <div class="subcat-stats medium-2 columns">
+                        ${thread.get("stats").get("views")} Views <br>
+                        ${thread.get("stats").get("replies")} Replies
+                    </div>
+                    
+                    <div class="subcat-last medium-3 columns">
+                        % if lastpost is not None:
+                            Last post made by <a href="#">${lastpost.get("username")}</a>
+                        % endif
+                    </div>
+                    
                 </div>
-                
-                <div class="subcat-stats medium-2 columns">
-                    ${thread.get("stats").get("views")} Views <br>
-                    ${thread.get("stats").get("replies")} Replies
-                </div>
-                
-                <div class="subcat-last medium-3 columns">
-                    % if lastpost is not None:
-                        Last post made by <a href="#">${lastpost.get("username")}</a>
-                    % endif
-                </div>
-                
             </div>
         </div>
     % endfor
 
-    </div>
+</div>

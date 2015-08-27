@@ -5,8 +5,7 @@
         <div class="left">
             <ul class="breadcrumbs">
                 <li><a href="/">Home</a></li>
-                <li><a href="../">cats</a></li>
-                <li><a href=".">${subcat_name}</a></li>
+                <li><a href="../${slug.get('subcat')}">${subcat_name}</a></li>
                 <li class="current"><a href="#">${title}</a></li>
             </ul>
         </div>
@@ -15,7 +14,7 @@
 
 % for post in posts:
 <div class="post-container">
-    <div class="row">
+    <div style="max-width: 100%;" class="row">
         <section class="large-2 columns post-header">
             <span class="post-date">${post.get("date")}</span>
             <div id="#post-${post.get('id')}"></div>
@@ -29,14 +28,17 @@
         
         <section class="small-3 columns post-options">
         % if request.session.get("identity") is not None:
-            <a href="${slugs['topic']}/replying-to/${post.get('id')}" class="button tiny">Reply</a>
-            <a href="#" class="button tiny">Quote</a>
-            <a href="#" class="button tiny">Edit</a>
+            <a href="${slug.get('topic')}/replying-to/${post.get('id')}" class="button tiny secondary gray-border">Reply</a>
+            <a href="#" class="button tiny secondary gray-border">Quote</a>
+            
+            % if request.session.get("identity").username == post.get("username"):
+                <a href="#" class="button tiny secondary gray-border">Edit</a>
+            % endif
         % endif 
         </section>  
     </div>
     
-    <div class="row">
+    <div style="max-width: 100%;" class="row">
         <section class="large-2 columns post-user">
             <a class="poster-username" href="/user/${post.get('username')}">${post.get("username")}</a>
             <span class="poster-title">${post.get("user_title")}</span>
@@ -55,4 +57,7 @@
         </section>
     </div>
 </div>
+
+<hr class="seperator">
+
 % endfor

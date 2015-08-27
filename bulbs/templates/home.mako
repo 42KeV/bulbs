@@ -32,6 +32,8 @@
         % if subcategory.get("category_id") == category.get("id"):
             <% lastpost = subcategory.get("last_post", None) %>
             
+            
+            <div class="row-background">
             <div class="subcat row">
                 
                 <div class="large-7 columns">
@@ -56,6 +58,7 @@
                     % endif
                 </div>
                 
+            </div>
             </div>
         % endif
     % endfor        

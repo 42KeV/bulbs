@@ -17,7 +17,7 @@ def main(request):
     if request.method == "POST":            
         post_subject = request.params.get("subject")
         post_message = request.params.get("message")
-        username = request.session.get("user")["username"]
+        username = request.session.get("identity").username
         
         cursor = connection.con.cursor()
         cursor.execute(
@@ -39,8 +39,8 @@ def main(request):
 
         url = request.route_url(
             "topic",
-            cat_slug=slugs["cat"],
-            subcat_slug=slugs["subcat"],
+            cat_slug=category_slug,
+            subcat_slug=subcategory_slug,
             topic_slug=new_thread_slug
         )
 

@@ -34,7 +34,7 @@ def main(request):
                 future_category_id(cursor),
                 "bulbs_category"
             )
-        
+            
         cursor.execute(
             "INSERT INTO bulbs_category (title, description, date, ip, slug) \
              VALUES (%s, %s, now(), %s, %s)", (

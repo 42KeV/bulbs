@@ -1,3 +1,36 @@
+before it is released: 
+1. admin cp must not be accessible to non privileged users
+2. regular members must not be able to edit posts except their own ! DONE
+3. setup should be easier, create an installation page to make installation more user friendly.
+4. create and maintain documentation on forum functions
+5. usernames must not be case sensitive
+6. do encryption within the application, instead of the database
+
+
+less important stuff:
+1. when viewing a topic, the root post should only show the thread title, instead of the first post on every page.
+
+
+admin cp stuff---
+1. automatically generate slug on subcategory creation -> fix temporary hack
+
+
+
+things that should be fixed before release, but not mandatory:
+1. generate cleaner urls, instead of appending post ids to random ones
+
+
+
+new shit:
+
+1. set settings in the dev/pro.ini file, for variables such as threads per page, posts per page, etc.
+
+
+
+
+
+----------------------- old shit:
+
 to do:
     1. insure the user is authorized when doing stuff in the admin panel
     2. fix case sensitive usernames

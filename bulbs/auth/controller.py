@@ -2,11 +2,11 @@ from bulbs.resources import connection
 
 
 class Session(object):
-    def __init__(self, username=None, id=None, group_id=None):
+    def __init__(self, username=None, id=None, group_id=None, authorized=False):
         self._username = username
         self._id = id
         self._group_id = group_id
-        self._authorized = False
+        self._authorized = authorized
         
     def is_authorized(self):
         return self._authorized
@@ -14,6 +14,7 @@ class Session(object):
     def set_authorization(self, username):
         if self._username is None:
             self._username = username
+            self._authorized = True
             return "User sucessfully authorized"
             
         return "User already authorized"
@@ -57,7 +58,7 @@ def authorize(username, password):
     
     return dict(
         success=True,
-        session=Session(username, user_id, group_id)
+        session=Session(username, user_id, group_id, True)
     )
     
     #return {

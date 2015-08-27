@@ -29,6 +29,10 @@ def main(request):
         subcategory_rank = request.params.get("subcatrank")
         subcategory_slug = request.params.get("subcatslug")
         
+        # temporary workaround for mysterious subcatslug empty string
+        if len(subcategory_slug) == 0:
+            subcategory_slug = None
+        
         if subcategory_slug is None:
             subcategory_slug = generate_slug(
                 cursor,
@@ -36,6 +40,8 @@ def main(request):
                 future_subcategory_id(cursor),
                 "bulbs_subcategory"
             )
+            
+            print ("------------------", subcategory_slug)
         
         # authorize user, make sure he's admin
         #
