@@ -53,12 +53,11 @@ def main(request):
     cat_data = categories(cursor)
     subcat_data = list(subcategories(cursor))
 
-    print (request.session.get("auth"))
+    print ("AUTH: ", request.session.get("auth"))
 
     return {
         "project": request.registry.settings.get("site_name"),
         "title": "Home",
-        "session": request.session,
         "categories": cat_data,
         "subcategories": subcat_data
     }

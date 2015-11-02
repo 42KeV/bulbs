@@ -18,10 +18,7 @@ def main(request):
             
             return HTTPFound(location=url)
     
-    session = request.session
-    
     return {
         "project": request.registry.settings.get("site_name"),
         "title": "Log In",
-        "session": session
     }

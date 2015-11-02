@@ -101,7 +101,6 @@ def main(request):
         'slug': slug,
         'topic_id': thread_id,
         'subcat_name': subcategory_title,
-        'session': request.session,
         'posts': content,
         'thread_is_locked': thread_locked,
         'pages': helpers.thread_pages(cursor, page)

@@ -1,40 +1,33 @@
 from bulbs.resources import connection
 
 
-class Session(object):
-    def __init__(self, username=None, id=None, group_id=None, authorized=False):
-        self._username = username
-        self._id = id
-        self._group_id = group_id
-        self._authorized = authorized
+class UserSession(object):
+    def __init__(self, username=None, id=None, group_id=None):#, authorized=False):
+        self.username = username
+        self.id = id
+        self.group_id = group_id
         
-    def is_authorized(self):
-        return self._authorized
+    def is_mod(self):
+        pass
         
-    def set_authorization(self, username):
-        if self._username is None:
-            self._username = username
-            self._authorized = True
-            return "User sucessfully authorized"
+    def is_admin(self):
+        pass
+        
+    def is_banned(self):
+        pass
+        
+    #def is_authorized(self):
+    #    return self.authorized
+        
+    #def set_authorization(self, username):
+    #    if not self.is_authorized:
+    #        self.username = username
+    #        self.authorized = True
             
-        return "User already authorized"
+            # return true if authorization was a sucess, false otherwise
+    #        return True
         
-    @property
-    def username(self):
-        return self._username
-        
-    @username.setter
-    def username(self, value):
-        self._username = value
-            
-    @property
-    def group_id(self):
-        return self._group_id
-        
-    @group_id.setter
-    def group_id(self, value):
-        self._group_id = value
-            
+    #    return False            
             
 def authorize(username, password):
     cursor = connection.con.cursor()
@@ -45,10 +38,10 @@ def authorize(username, password):
     )
 
     if not password == cursor.fetchone()[0]:
-        # failure to authenticate, mostly likely invalid user or pass
+        # failure to authenticate
         return dict(
             success=False,
-            session=Session()
+            session=None
         )
 
     cursor.execute("SELECT id FROM bulbs_User WHERE username = %s", (username, ))
@@ -58,12 +51,6 @@ def authorize(username, password):
     
     return dict(
         success=True,
-        session=Session(username, user_id, group_id, True)
+        session=UserSession(username, user_id, group_id)
     )
-    
-    #return {
-    #    "success": True, 
-    #    "session": Session(username, user_id, group_id)
-    #}
-
 

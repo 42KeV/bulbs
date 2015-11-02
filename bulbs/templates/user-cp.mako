@@ -16,23 +16,29 @@
     </div>
     
     <div class="row">
-        <div class="large-6 columns">
-            <label>Avatar
-                <input type="file" name="avatar"/>
-            </label>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="large-6 columns center">
+        <div class="large-4 columns center">
             <label>Email
                 <input type="email" name="email" placeholder="$previous email^"/>
             </label>
         </div>
+
+        <div class="large-4 columns">
+            <label>Avatar
+                <input type="file" name="avatar"/>
+            </label>
+        </div>
+        
+        <div class="large-4 columns">
+            % if not None:
+                <label style="padding-top: 10px">
+                    <img src="http://i.somethingawful.com/forumsystem/emoticons/emot-smugdog.gif"/>
+                </label>
+            % endif
+        </div>
     </div>
     
     <div class="row">
-        <div class="large-6 columns">
+        <div class="large-4 columns">
             <label>Real name
                 <input type="text" name="real_name"/>
             </label>

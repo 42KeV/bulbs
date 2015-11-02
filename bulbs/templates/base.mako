@@ -107,11 +107,12 @@
             $(document).foundation();
         </script>     
         
-        <footer style="bottom:0;width:100vw;">
+        
+        <!--<footer style="bottom:0;width:100vw;">
             <div class="large-12 medium-12 text-center columns">
                 <p class="subheader">Powered by <a href="https://github.com/galileo94/bulbs">Bulbs</a></p>
             </div>
-        </footer>
+        </footer>-->
            
     </body>
 </html>

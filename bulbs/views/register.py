@@ -9,6 +9,7 @@ def username_taken(cursor, username):
     )
 
     taken = cursor.fetchone()
+    
     if taken:
         return True
     
@@ -38,16 +39,13 @@ def main(request):
                             
             connection.con.commit()
             url = request.route_url("login")
-            
             return HTTPFound(location=url)
             
         else:
             url = request.route_url("error")
-            
             return HTTPFound(location=url)
             
     return {
         "project": request.registry.settings.get("site_name"),
-        "title": "Register",
-        "session": request.session
+        "title": "Register"
     }

@@ -3,14 +3,16 @@ from pyramid.view import view_config
 
 @view_config(route_name="user_view", renderer="user.mako")
 def main(request):
-    username = request.matchdict["username"]
-    user_session = request.session.get("login_state")
+    username = request.matchdict.get("username")
 
-    cur = con.cursor()
-    cur.execute("SELECT username, to_char(date, 'Mon FMDD, YYYY HH:MM AM'), karma, title, \
-                 name, city, state, country, biography, avatar \
-                 FROM bulbs_User WHERE username = %s", (username, ))
-    data = cur.fetchone()
+    cursor = con.cursor()
+    cursor.execute(
+        "SELECT username, to_char(date, 'Mon FMDD, YYYY HH:MM AM'), karma, title, \
+        name, city, state, country, biography, avatar \
+        FROM bulbs_User WHERE username = %s", (username, )
+    )
+    
+    data = cursor.fetchone()
     
     user = {
         "username": data[0],
@@ -28,6 +30,5 @@ def main(request):
     return {
         "project": request.registry.settings.get("site_name"),
         "title": "{0}'s profile".format(user["username"]),
-        "session": user_session,
         "user": user
     }
