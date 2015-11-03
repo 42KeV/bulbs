@@ -2,6 +2,16 @@ from pyramid.httpexceptions import HTTPFound
 from bulbs.resources import connection
 from pyramid.view import view_config
 
+import bcrypt
+
+def generate_password(pt_password):
+    twelve = 12
+    salt = bcrypt.gensalt(twelve);
+    
+    pt_password = bytes(pt_password, encoding="utf-8")
+    hashed_password = bcrypt.hashpw(pt_password, salt)
+    
+    return hashed_password
 
 def username_taken(cursor, username):
     cursor.execute(
@@ -21,8 +31,8 @@ def main(request):
     
     if request.method == "POST":
         username = request.params.get("username")
-        password1 = request.params.get("password1")
-        password2 = request.params.get("password2")
+        password = request.params.get("password1")
+        password_again = request.params.get("password2")
         email = request.params.get("email")
         
         cursor = connection.con.cursor()
@@ -30,11 +40,19 @@ def main(request):
         if username_taken(cursor, username):
             return Response("username already exists. please choose a different one.")
 
-        if password1 == password2:
+        if password == password_again:
+            hashed_password = generate_password(password)
             cursor.execute(
                 "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title) \
-                VALUES (%s, encrypt(%s, 'close but no guitar', 'aes'), %s, %s, now(), %s, %s)",
-                (username, password1, email, request.client_addr, 0, "Newbie")
+                VALUES (%s, %s, %s, %s, now(), %s, %s)",
+                (
+                    username, 
+                    hashed_password, 
+                    email, 
+                    request.client_addr, 
+                    0,
+                    "Newbie"
+                )
             )
                             
             connection.con.commit()

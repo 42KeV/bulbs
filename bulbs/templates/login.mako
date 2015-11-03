@@ -1,8 +1,10 @@
 <%inherit file="base.mako"/>
 
+<br>
+
 <form method="POST">
     <div class="row">
-        <div class="small-5 small-centered columns">
+        <div class="small-7 small-centered columns">
             <div class="row"> 
                 <div class="small-3 columns">
                     <label for="right-label" name="username" class="right inline">Username</label>
@@ -16,7 +18,7 @@
     </div>
     
     <div class="row">
-        <div class="small-5 small-centered columns">
+        <div class="small-7 small-centered columns">
             <div class="row"> 
                 <div class="small-3 columns">
                     <label for="right-label" class="right inline">Password</label>

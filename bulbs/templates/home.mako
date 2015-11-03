@@ -1,18 +1,26 @@
 <%inherit file="base.mako"/>
 
 <%
-    current_username = None
-    if request.session.get("user") is not None:
-        current_username = request.session.get("user").get("username")
-    if current_username is None:
-        is_logged_in = False
-    else:
+    ident = request.session.get("identity") or False  
+    
+    if ident:
         is_logged_in = True
+    else:
+        is_logged_in = False
 %>
 
+<br>
 
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-6 columns">
+        % if is_logged_in:
+            <p>Logged in as ${ident.username}</p>
+        % else:
+            <p>Welcome, are you new here? <a href="/register">Click here</a> to sign up</a></p>
+        % endif
+    </div>
+
+    <div class="large-6 columns text-right">
         % if is_logged_in:
             <p>There have been $n new posts since your last visit.</p>
         % endif
@@ -21,12 +29,12 @@
 
 % for category in categories:
     <div class="row">
-        <div class="large-12 columns text-center">
-            <span class="cat-name">${category.get("title")}</span>
+        <div class="large-12 columns text-center rounded-pretty-blue">
+            <span class="cat-name" style="background-color: #333; color: #eff; padding: 5px; " >${category.get("title")}</span>
         </div>
     </div>
 
-    <hr class="seperator">
+    <r class="septerator">
     
     % for subcategory in subcategories:
         % if subcategory.get("category_id") == category.get("id"):

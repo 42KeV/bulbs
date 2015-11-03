@@ -28,6 +28,7 @@
                 -ms-transition: background-color 500ms ease;
                 transition: background-color 500ms ease;
             }
+
             
             .subcat {
                 -webkit-transition: background-color 500ms ease;
@@ -57,41 +58,62 @@
                 padding-right: 2em;
             }
             
+            .pretty-blue-nav {
+                background-image: linear-gradient(to right bottom, #acc9ea, #3176c4);
+                /*background-color: #3176c4;*/
+                padding: 2em;
+                color: #eff;
+            }
+            
+            .pretty-blue {
+                background-color: #3176c4;
+                opacity: 0.8;
+                /*border-bottom: 1px solid #316754;*/
+            }
+            
+            .rounded-pretty-blue {
+                background-color: #3176c4;
+                opacity: 0.8;
+                padding: 5px;
+                /*border: 1px solid #316754;*/
+            }
+            
+            body {
+                padding: 0;
+            }
+            
         </style>
 
     </head>
     
     <body>
-        <div class="container">
-            <div class="row">
-                <nav>
-                    <div class="large-5 columns">
-                        <h1 style="margin: 0">${project}</h1>
-                        % if is_logged_in:
-                            <p>Logged in as ${ident.username}</p>
-                        % else:
-                            <p>Welcome, are you new here? <a href="/register">Click here</a> to sign up</a></p>
-                        % endif
-                    </div>
-                    
-                    
-                    <div class="large-7 columns">
-                        <ul class="button-group round right">
-                            <li><a href="/" class="button small secondary gray-border">Home</a></li>
-                            
-                            % if is_logged_in:
-                                % if ident.group_id == 3:
-                                    <li><a href="/admin" class="button secondary small gray-border">Admin CP</a></li>
-                                % endif 
-                                <li><a href="/usercp" class="button secondary small gray-border">User CP</a></li>
-                                <li><a href="/inbox" class="button secondary small gray-border">Inbox</a></li>
-                                <li><a href="/logout" class="button secondary small gray-border">Sign out</a></li>
-                            % else:
-                                <li><a href="/login" class="button secondary small gray-border">Sign in</a></li>
-                            % endif
-                        </ul>
-                    </div>
-                </nav>
+        <div class="pretty-blue-nav">
+            <div class="container">
+                <div class="row">
+                    <nav>
+                        <div class="large-5 columns">
+                            <h1 style="margin: 0; color: #eff;">${project}</h1>
+                        </div>
+                        
+                        
+                        <div class="large-7 columns">
+                            <ul class="button-group round right">
+                                <li><a href="/" class="button small secondary ">Home</a></li>
+                                
+                                % if is_logged_in:
+                                    % if ident.group_id == 3:
+                                        <li><a href="/admin" class="button secondary small ">Admin CP</a></li>
+                                    % endif 
+                                    <li><a href="/usercp" class="button secondary small ">User CP</a></li>
+                                    <li><a href="/inbox" class="button secondary small ">Inbox</a></li>
+                                    <li><a href="/logout" class="button secondary small ">Sign out</a></li>
+                                % else:
+                                    <li><a href="/login" class="button secondary small ">Sign in</a></li>
+                                % endif
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
         
@@ -106,7 +128,6 @@
         <script>
             $(document).foundation();
         </script>     
-        
         
         <!--<footer style="bottom:0;width:100vw;">
             <div class="large-12 medium-12 text-center columns">
