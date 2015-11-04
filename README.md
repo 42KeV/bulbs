@@ -6,10 +6,7 @@ Bulbs was first conceived when Jeff, the sun god called upon TazG the Destroyer 
 A year later, jeff decided to create his own version of Bulbs. A harder, better, faster, stronger version of Bulbs. This resurrection of a dead forum engine, who was abused by its maintainer came after the founder(s) of New Free Games Forum grew tired of using the ravaged perl monstrosity known as Gossamer Forum. In a drunken rage Bulbs was reborn and a large shadow cast upon Gossamer Forum; it has finally met a true rival, one that won't be so easily defeated. 
 
 ## Is it ready for production yet?
-Nope, the current release version is: **0.2**, still have a shit ton of stuff to iron out.
-
-## Is it secure?
-I dunno, maybe. Probably not.
+Sure, it's secure AFAICT but there is still a shit ton of stuff to iron out.
 
 ## Requirements
 * Python 3.4+
@@ -17,10 +14,10 @@ I dunno, maybe. Probably not.
 * PostgreSQL
 
 ## How to install
-* Clone the github repository, `git clone https://github.com/Galileo94/bulbs.git`
-* Switch into your virtualenv if you're using it
+* Clone the repository, `git clone https://github.com/galileo94/bulbs.git`
 * `python setup.py develop` to install the package and dependencies
-* `python setup.py configure` will prompt you for your database information
-* If nothing exploded, you should be ready to rock and roll
+* `pthon setup.py configure` to configure database information
+
+If nothing exploded, you should be ready to rock and roll
 
 
