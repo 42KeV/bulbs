@@ -39,7 +39,20 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>welcome <cite>to no mans land</cite></p>
+<p>Clone Bulbs using git or download the .zip:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/galileo94/bulbs.git
+</pre></div>
+</div>
+<p><a class="reference external" href="https://github.com/galileo94/bulbs/archive/master.zip">https://github.com/galileo94/bulbs/archive/master.zip</a></p>
+<p>It is advised that you switch into a virtual environment now, as we will be installing the package and dependencies:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py develop
+</pre></div>
+</div>
+<p>Configuring the database:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py configure
+</pre></div>
+</div>
+<p>All done. If you encounter any errors please file a bug report on github.</p>
 <dl class="function">
 <dt id="bulbs.auth.controller.generate_password">
 <code class="descclassname">bulbs.auth.controller.</code><code class="descname">generate_password</code><span class="sig-paren">(</span><em>pt_password</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.auth.controller.generate_password" title="Permalink to this definition">¶</a></dt>

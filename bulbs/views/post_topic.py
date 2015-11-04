@@ -6,7 +6,7 @@ from pyramid.response import Response
 
 
 @view_config(route_name='new-topic', renderer='new-topic.mako')
-def main(request):
+def response(request):
     ''' User gets this view when he goes to create a new topic '''
     category_slug = request.matchdict["cat_slug"]
     subcategory_slug = request.matchdict["subcat_slug"]

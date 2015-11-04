@@ -3,7 +3,7 @@ from pyramid.view import view_config
 
 @view_config(route_name="admin_home", renderer="admin/home.mako")
 #@view_config()
-def main(request):
+def response(request):
 
     return {
         "project": request.registry.settings.get("site_name"),

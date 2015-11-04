@@ -2,7 +2,7 @@ from pyramid.view import view_config
 
 
 @view_config(route_name="post_edit", renderer="post_edit.mako")
-def main(request):
+def response(request):
     post_id = request.params.get("post")
     login_state = request.session.get("login_state")
     

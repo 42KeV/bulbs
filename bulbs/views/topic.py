@@ -57,7 +57,7 @@ def topic_content(cursor, thread_id, page):
 
 
 @view_config(route_name='topic', renderer='topic-view.mako')
-def main(request):
+def response(request):
     """ This view function is called when a thread is opened and returns the posts """
     slug = {
         "cat": request.matchdict.get("cat_slug"),

@@ -42,7 +42,7 @@ def topics(cursor, subcategory_id, page):
     return content
 
 @view_config(route_name="subcategory", renderer="subcat-view.mako")
-def main(request):
+def response(request):
     """ This takes a subcategory slug and returns all of its threads, replies and views """
     page_id = request.params.get("page")
     

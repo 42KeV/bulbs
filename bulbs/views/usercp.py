@@ -3,7 +3,7 @@ from pyramid.response import Response
 
 
 @view_config(route_name="usercp", renderer="user-cp.mako")
-def main(request):
+def response(request):
     ident = request.session.get("identity")
     
     print (ident)

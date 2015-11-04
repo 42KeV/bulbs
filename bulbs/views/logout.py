@@ -2,7 +2,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 
 @view_config(route_name="logout", renderer="logout.mako")
-def main(request):
+def response(request):
     try:
         del request.session["identity"]
     except KeyError:

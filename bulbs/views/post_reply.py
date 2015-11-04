@@ -5,7 +5,7 @@ from pyramid.view import view_config
 
 
 @view_config(route_name='new-reply', renderer='new-reply.mako')
-def main(request):
+def response(request):
     ''' This view is called when someone is replying to a post '''
     if request.session.get("identity") is None:
         url = request.route_url(

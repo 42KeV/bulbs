@@ -1,9 +1,7 @@
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from bulbs.resources import connection
-from bulbs.auth.controller import generate_password
-
-import bcrypt
+from bulbs.components.security import generate_password
 
 
 def username_taken(cursor, username):
@@ -19,7 +17,7 @@ def username_taken(cursor, username):
     return False
 
 @view_config(route_name="register", renderer="register.mako")
-def main(request):
+def response(request):
     ''' This view is called when someone is signing up '''
     
     if request.method == "POST":

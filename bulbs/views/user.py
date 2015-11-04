@@ -2,7 +2,7 @@ from pyramid.view import view_config
 
 
 @view_config(route_name="user_view", renderer="user.mako")
-def main(request):
+def response(request):
     username = request.matchdict.get("username")
 
     cursor = con.cursor()

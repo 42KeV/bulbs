@@ -3,7 +3,7 @@ from bulbs.resources import connection
 import bcrypt
 
 class UserSession(object):
-    def __init__(self, username=None, id=None, group_id=None):#, authorized=False):
+    def __init__(self, username=None, id=None, group_id=None):
         self.username = username
         self.id = id
         self.group_id = group_id
@@ -16,17 +16,7 @@ class UserSession(object):
         
     def is_banned(self):
         pass
-             
 
-def generate_password(pt_password):
-    '''Returns a hashed bytes object using bcrypt's hashpw function'''
-    twelve = 12
-    salt = bcrypt.gensalt(twelve);
-    
-    pt_password = bytes(pt_password, encoding="utf-8")
-    hashed_password = bcrypt.hashpw(pt_password, salt)
-    
-    return hashed_password
 
 def authorize(username, password):
     '''
@@ -40,15 +30,20 @@ def authorize(username, password):
         cursor.execute("SELECT password FROM bulbs_user WHERE username = %s", (username, ))
         stored_password = cursor.fetchone()[0].tobytes()
     except IndexError:
-        # specified user doesn't exist
+        # Specified user doesn't exist
         return dict(
             sucess=False,
             session=None
         )
 
-    if not bcrypt.hashpw(
-        bytes(password, encoding="utf-8"), stored_password) == stored_password:
-        # failure to authenticate
+    try:
+        password_match = bcrypt.hashpw(
+            bytes(password, encoding="utf-8"), stored_password) == stored_password
+            
+        if not password_match:
+            # Password doesn't match what's in the DB
+            raise ValueError
+    except ValueError as e:
         return dict(
             success=False,
             session=None

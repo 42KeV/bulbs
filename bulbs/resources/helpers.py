@@ -5,10 +5,14 @@ def generate_slug(cursor, name, id, table_name):
     slug = slugify(name)
     
     cursor.execute(
-        "SELECT exists(SELECT true FROM {0} WHERE slug=%s)".format(table_name), (
-            slug,
-        )
+        "SELECT exists(SELECT true FROM %s WHERE slug=%s)", (table_name, slug)
     )
+    
+    #cursor.execute(
+    #    "SELECT exists(SELECT true FROM {0} WHERE slug=%s)".format(table_name), (
+    #        slug,
+    #    )
+    #)
     
     slug_already_exists = cursor.fetchone()[0]
     
@@ -18,6 +22,7 @@ def generate_slug(cursor, name, id, table_name):
     return "{0}-{1}".format(slug, id)
 
 def username_from_id(cursor, user_id):
+    '''Returns the corresponding username from the id'''
     try:
         cursor.execute(
             "SELECT username FROM bulbs_User WHERE id = %s", (user_id, )
@@ -30,6 +35,7 @@ def username_from_id(cursor, user_id):
     return username
     
 def number_of_threads(cursor, forum_id):
+    '''Returns the number of threads in a specific forum'''
     try:
         cursor.execute(
             "SELECT count(id) FROM bulbs_Post WHERE subcategory_id = %s \
@@ -43,6 +49,7 @@ def number_of_threads(cursor, forum_id):
     return views
     
 def number_of_posts(cursor, forum_id):
+    '''Returns the number of posts in a specific forum'''
     try:
         cursor.execute(
             "SELECT count(id) FROM bulbs_Post WHERE subcategory_id = %s \
@@ -56,6 +63,7 @@ def number_of_posts(cursor, forum_id):
     return posts
     
 def number_of_views(cursor, thread_id):
+    '''Returns the number of views in a specific thread'''
     try:
         cursor.execute(
             "SELECT views FROM bulbs_PostView WHERE post_id = %s", (thread_id, )
@@ -68,6 +76,7 @@ def number_of_views(cursor, thread_id):
     return views
     
 def number_of_replies(cursor, thread_id):
+    '''Returns the number of replies in a specific thread'''
     try:
         cursor.execute(
             "SELECT count(id) FROM bulbs_Post WHERE parent_post = %s", 
@@ -81,6 +90,7 @@ def number_of_replies(cursor, thread_id):
     return replies
     
 def subcategory_title_from_id(cursor, subcategory_id):
+    '''Returns the corresponding forum title from id'''
     try:
         cursor.execute(
             "SELECT title FROM bulbs_Subcategory WHERE id = %s", (subcategory_id, )
@@ -93,6 +103,7 @@ def subcategory_title_from_id(cursor, subcategory_id):
     return title
     
 def subcategory_moderators(cursor, subcategory_id):
+    '''Returns the moderators in a specific forum'''
     try:
         cursor.execute(
             "SELECT subcat_id, user_id, username FROM bulbs_Moderator \
@@ -106,9 +117,8 @@ def subcategory_moderators(cursor, subcategory_id):
     return mods
     
 def last_post(cursor, subcategory_id, parent_post=None):
-    ''' parent_post is set to None by default, if parent post is provided then 
-        we'll return the last post data for a thread
-    '''
+    '''Returns the last post from a specific forum. If parent_post is not None, returns last post data from a thread'''
+    #parent_post is set to None by default, if parent post is provided then we'll return the last post data for a thread
     
     if parent_post is not None:
         cursor.execute(
@@ -161,7 +171,7 @@ def last_post(cursor, subcategory_id, parent_post=None):
     return last_post
     
 def is_root_post(cursor, post_id):
-    # this will return true if the post is the first in a thread
+    '''Returns true if post is the first in a thread'''
     try:
         cursor.execute("SELECT parent_post FROM bulbs_Post WHERE id = %s", (post_id, ))
         parent_id = cursor.fetchone()[0]
@@ -171,6 +181,7 @@ def is_root_post(cursor, post_id):
     return True
     
 def thread_pages(cursor, thread_id):
+    '''Returns the amount of threads that should be displayed per forum page'''
     rows_per_page = 15        
     cursor.execute(
         "SELECT count(*) FROM bulbs_Post WHERE id = %s OR parent_post = %s",

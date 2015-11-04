@@ -59,7 +59,7 @@
             }
             
             .pretty-blue-nav {
-                background: #3F3232;
+                background: #333;
                 /*background-color: #3176c4;*/
                 padding: 2em;
                 color: #eff;

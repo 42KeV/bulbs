@@ -2,11 +2,11 @@ from pyramid.httpexceptions import HTTPFound
 from bulbs.resources import connection
 from pyramid.view import view_config
 
-from bulbs.auth.controller import authorize
-
+#from bulbs.auth.controller import authorize
+from bulbs.components.auth import authorize
 
 @view_config(route_name="login", renderer="login.mako")
-def main(request):
+def response(request):
     if request.method == "POST":
         username = request.params.get("username")
         password = request.params.get("password")

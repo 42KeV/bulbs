@@ -48,7 +48,7 @@ def subcategories(cursor, category_id=None):
     return subcategories_
 
 @view_config(route_name="home", renderer="home.mako")
-def main(request):
+def response(request):
     cursor = connection.con.cursor()
     cat_data = categories(cursor)
     subcat_data = list(subcategories(cursor))
