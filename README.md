@@ -22,4 +22,3 @@ It is advised that you switch into a virtual environment now, as we will be inst
 * `pthon setup.py configure` to configure database information
 
 If nothing exploded, you should be ready to rock and roll
-
