@@ -29,8 +29,8 @@
 
 % for category in categories:
     <div class="row">
-        <div class="large-12 columns text-center rounded-pretty-blue">
-            <span class="cat-name" style="background-color: #333; color: #eff; padding: 5px; " >${category.get("title")}</span>
+        <div class="large-12 columns" style="padding: 0;">
+            <span class="cat-name" style="background-color: #333; color: #eff; padding: 4px;text-align:left">${category.get("title")}</span>
         </div>
     </div>
 

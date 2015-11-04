@@ -59,7 +59,7 @@
             }
             
             .pretty-blue-nav {
-                background-image: linear-gradient(to right bottom, #acc9ea, #3176c4);
+                background: #3F3232;
                 /*background-color: #3176c4;*/
                 padding: 2em;
                 color: #eff;
@@ -82,6 +82,10 @@
                 padding: 0;
             }
             
+            span.cat-name {
+                display: block;
+            }
+            
         </style>
 
     </head>
@@ -92,7 +96,7 @@
                 <div class="row">
                     <nav>
                         <div class="large-5 columns">
-                            <h1 style="margin: 0; color: #eff;">${project}</h1>
+                            <h1 style="margin: 0; color: #eff; font-size: 36px;">${project}</h1>
                         </div>
                         
                         

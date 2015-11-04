@@ -16,6 +16,7 @@ requires = [
     'waitress',
     'pyramid_beaker',
     'psycopg2',
+    'bcrypt'
     ]
 
 def setupdb():
@@ -23,7 +24,7 @@ def setupdb():
     import configparser
 
     def write_sql_config(dbname, dbuser, dbpass, dbport):
-        ## writes database configuration to a file
+        # writes database configuration to a file
         config = configparser.RawConfigParser()
         
         config.add_section("auth")
@@ -75,7 +76,7 @@ def setupdb():
             cursor.execute(query)
         except psycopg2.ProgrammingError as e:
             print (e)
-            choice = input("Could not create extension 'pgcrypto'... Continue? [y/n] ")
+            choice = input(" ... Continue? [y/n] ")
             
             if choice.startswith("n"):
                 exit(1)

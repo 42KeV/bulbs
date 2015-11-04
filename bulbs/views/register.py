@@ -1,17 +1,10 @@
 from pyramid.httpexceptions import HTTPFound
-from bulbs.resources import connection
 from pyramid.view import view_config
+from bulbs.resources import connection
+from bulbs.auth.controller import generate_password
 
 import bcrypt
 
-def generate_password(pt_password):
-    twelve = 12
-    salt = bcrypt.gensalt(twelve);
-    
-    pt_password = bytes(pt_password, encoding="utf-8")
-    hashed_password = bcrypt.hashpw(pt_password, salt)
-    
-    return hashed_password
 
 def username_taken(cursor, username):
     cursor.execute(

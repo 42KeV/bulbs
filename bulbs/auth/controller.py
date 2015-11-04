@@ -19,6 +19,7 @@ class UserSession(object):
              
 
 def generate_password(pt_password):
+    '''Returns a hashed bytes object using bcrypt's hashpw function'''
     twelve = 12
     salt = bcrypt.gensalt(twelve);
     
@@ -28,6 +29,11 @@ def generate_password(pt_password):
     return hashed_password
 
 def authorize(username, password):
+    '''
+    Takes plaintext arguments and returns a dictionary object with the keys `success` and `session`. 
+    If the login arguments match that of the database, `success` will have a value of True and `session` will have `UserSession` class.
+    Otherwise it will be False and `session` will be None
+    '''
     cursor = connection.con.cursor()
     
     try:
