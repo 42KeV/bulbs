@@ -17,9 +17,3 @@ Configuring the database::
    python setup.py configure
 
 All done. If you encounter any errors please file a bug report on github.
-
-
-
-.. autofunction:: bulbs.auth.controller.generate_password
-
-.. autofunction:: bulbs.auth.controller.authorize

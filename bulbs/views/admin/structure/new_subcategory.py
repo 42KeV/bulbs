@@ -1,6 +1,6 @@
-from bulbs.resources import connection
-from bulbs.resources.helpers import generate_slug
 from pyramid.view import view_config
+from bulbs.components import db
+from bulbs.components.helpers import generate_slug
 
 
 def future_subcategory_id(cursor):
@@ -17,7 +17,7 @@ def catinfo(data):
 
 @view_config(route_name="admin_struct_new_subcategory", renderer="admin/structure/new-subcategory.mako")
 def main(request):
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     cursor.execute("SELECT id, title FROM bulbs_category")
     cat_data = cursor.fetchall()
     categories = map(catinfo, cat_data)
@@ -50,7 +50,7 @@ def main(request):
         #
         #
         
-        cursor = connection.con.cursor()
+        cursor = db.con.cursor()
         cursor.execute(
             "INSERT INTO bulbs_subcategory (title, description, category_id, date, ip, slug) \
              VALUES (%s, %s, %s, now(), %s, %s)", (
@@ -62,7 +62,7 @@ def main(request):
             )
         )
         
-        connection.con.commit()
+        db.con.commit()
     
     return {
         "project": request.registry.settings.get("site_name"),

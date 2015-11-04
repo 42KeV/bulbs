@@ -1,8 +1,7 @@
 from pyramid.httpexceptions import HTTPFound
-from bulbs.resources import connection
-from bulbs.components.topic import reply_to_topic
 from pyramid.view import view_config
-
+from bulbs.components import db
+from bulbs.components.topic import reply_to_topic
 
 @view_config(route_name='new-reply', renderer='new-reply.mako')
 def response(request):
@@ -23,7 +22,7 @@ def response(request):
     
     post_id = request.matchdict.get("post_id")
 
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     cursor.execute("SELECT parent_post, user_id FROM bulbs_post WHERE id = %s", (post_id, ))
     original_post = cursor.fetchone()
     

@@ -1,9 +1,8 @@
 from pyramid.view import view_config
-from bulbs.resources import connection
-from bulbs.components.topic import create_topic
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
-
+from bulbs.components import db
+from bulbs.components.topic import create_topic
 
 @view_config(route_name='new-topic', renderer='new-topic.mako')
 def response(request):
@@ -19,7 +18,7 @@ def response(request):
         post_message = request.params.get("message")
         username = request.session.get("identity").username
         
-        cursor = connection.con.cursor()
+        cursor = db.con.cursor()
         cursor.execute(
             "SELECT id FROM bulbs_subcategory WHERE slug = %s",
             (subcategory_slug, )

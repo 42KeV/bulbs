@@ -9,10 +9,12 @@ Welcome to Bulbs's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
    intro
-
+   auth
+   components
+   views
 
 Indices and tables
 ==================

@@ -1,0 +1,12 @@
+**************
+Authentication
+**************
+
+This module deals with user authentication. 
+
+.. automodule:: bulbs.components.auth
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

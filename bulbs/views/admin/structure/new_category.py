@@ -1,6 +1,6 @@
-from bulbs.resources import connection
-from bulbs.resources.helpers import generate_slug
 from pyramid.view import view_config
+from bulbs.components import db
+from bulbs.components.helpers import generate_slug
 
 
 def future_category_id(cursor):
@@ -25,7 +25,7 @@ def main(request):
         #
         #
         
-        cursor = connection.con.cursor()
+        cursor = db.con.cursor()
         
         if category_slug is None:
             category_slug = generate_slug(
@@ -45,7 +45,7 @@ def main(request):
             )
         )
         
-        connection.con.commit()
+        db.con.commit()
     
     return {
         "project": request.registry.settings.get("site_name"),

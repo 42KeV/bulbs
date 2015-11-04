@@ -1,4 +1,4 @@
-from bulbs.resources import connection
+from bulbs.components import db
 from pyramid.view import view_config
 
 @view_config(route_name="admin_home", renderer="admin/home.mako")

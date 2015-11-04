@@ -1,7 +1,7 @@
-from bulbs.resources import helpers
-from bulbs.resources import connection
 from pyramid.view import view_config
 from pyramid.response import Response
+from bulbs.components import helpers
+from bulbs.components import db
 from itertools import chain
 
 
@@ -65,7 +65,7 @@ def response(request):
         "topic": request.matchdict.get("topic_slug")
     }
     
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     cursor.execute("SELECT id FROM bulbs_post WHERE slug = %s AND parent_post IS NULL", (slug.get("topic"), ))
     
     try:
@@ -90,7 +90,7 @@ def response(request):
     topic_title = cursor.fetchone()[0]
     
     cursor.execute("UPDATE bulbs_PostView SET views = views + 1 WHERE post_id = %s", (thread_id, ))
-    connection.con.commit()
+    db.con.commit()
     
     cursor.execute("SELECT isLocked from bulbs_Post WHERE id = %s", (thread_id, ))
     thread_locked = cursor.fetchone()[0]

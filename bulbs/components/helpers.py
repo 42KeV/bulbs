@@ -1,11 +1,13 @@
 import sys
 from slugify import slugify
+from psycopg2.extensions import AsIs
+
 
 def generate_slug(cursor, name, id, table_name):
     slug = slugify(name)
     
     cursor.execute(
-        "SELECT exists(SELECT true FROM %s WHERE slug=%s)", (table_name, slug)
+        "SELECT exists(SELECT true FROM %s WHERE slug=%s)", (AsIs(table_name), slug)
     )
     
     #cursor.execute(

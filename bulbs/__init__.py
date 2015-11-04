@@ -4,7 +4,7 @@ from pyramid.view import view_config
 from pyramid.view import notfound_view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
-from bulbs.resources import connection
+from bulbs.components import db
 
 
 #@notfound_view_config()
@@ -47,7 +47,7 @@ def main(global_config, **settings):
     #config.add_view(error_view, renderer='error.mako', context=NotFound)
     #config.add_view(unauthorized_view, renderer='unauthorized.mako', context=Unauthorized)
     
-    connection.init()
+    db.init()
     config.scan()
     app = config.make_wsgi_app()
     

@@ -1,0 +1,7 @@
+helpers module
+==============
+
+.. automodule:: bulbs.resources.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:

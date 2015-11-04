@@ -1,6 +1,6 @@
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-from bulbs.resources import connection
+from bulbs.components import db
 from bulbs.components.security import generate_password
 
 
@@ -26,7 +26,7 @@ def response(request):
         password_again = request.params.get("password2")
         email = request.params.get("email")
         
-        cursor = connection.con.cursor()
+        cursor = db.con.cursor()
         
         if username_taken(cursor, username):
             return Response("username already exists. please choose a different one.")
@@ -46,7 +46,7 @@ def response(request):
                 )
             )
                             
-            connection.con.commit()
+            db.con.commit()
             url = request.route_url("login")
             return HTTPFound(location=url)
             

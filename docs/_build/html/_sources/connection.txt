@@ -1,0 +1,7 @@
+Database Connection
+=================
+
+.. automodule:: bulbs.resources.connection
+    :members:
+    :undoc-members:
+    :show-inheritance:

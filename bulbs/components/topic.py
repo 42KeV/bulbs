@@ -1,4 +1,4 @@
-from bulbs.resources import connection
+from bulbs.components import db
 from html.parser import HTMLParser
 from slugify import slugify
 
@@ -53,7 +53,7 @@ def reply_to_topic(subject, content, topic_id, ip, username):
     
     formatted_post = format_post(content)
     
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
 
     cursor.execute("SELECT subcategory_id FROM bulbs_post WHERE id = %s", (topic_id, ))
     subcat_id = cursor.fetchone()[0]      
@@ -68,7 +68,7 @@ def reply_to_topic(subject, content, topic_id, ip, username):
         (%s, %s, %s, %s, now(), %s, %s, %s)", (subcat_id, topic_id, subject, formatted_post, user_id, ip, post_slug))
 
     cursor.execute("UPDATE bulbs_Post SET latest_reply = now() WHERE id = %s", (topic_id, ))
-    connection.con.commit()
+    db.con.commit()
     
     return True
     
@@ -80,7 +80,7 @@ def create_topic(subject, content, subcategory_id, ip, username):
             post_message,
             author_ip
     '''
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     formatted_post = format_post(content)
 
     cursor.execute("SELECT id FROM bulbs_user WHERE username = %s", (username, ))
@@ -103,7 +103,7 @@ def create_topic(subject, content, subcategory_id, ip, username):
     
     cursor.execute("UPDATE bulbs_post SET slug = %s WHERE id = %s", (topic_slug, new_topic_id))
     cursor.execute("INSERT INTO bulbs_postview (post_id, views) VALUES (%s, 0)", (new_topic_id, ))
-    connection.con.commit()
+    db.con.commit()
     
     # we return the thread slug so the user can be redirected to it
     return topic_slug

@@ -1,4 +1,4 @@
-from bulbs.resources import connection
+from bulbs.components import db
 
 import bcrypt
 
@@ -22,14 +22,13 @@ def authorize(username, password):
     '''
     Takes plaintext arguments and returns a dictionary object with the keys `success` and `session`. 
     If the login arguments match that of the database, `success` will have a value of True and `session` will have `UserSession` class.
-    Otherwise it will be False and `session` will be None
     '''
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     
     try:
         cursor.execute("SELECT password FROM bulbs_user WHERE username = %s", (username, ))
         stored_password = cursor.fetchone()[0].tobytes()
-    except IndexError:
+    except (IndexError, TypeError):
         # Specified user doesn't exist
         return dict(
             sucess=False,

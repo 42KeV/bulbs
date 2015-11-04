@@ -1,6 +1,6 @@
-from bulbs.resources import helpers
-from bulbs.resources import connection
 from pyramid.view import view_config
+from bulbs.components import helpers
+from bulbs.components import db
 
 
 def topics(cursor, subcategory_id, page):
@@ -56,7 +56,7 @@ def response(request):
         "subcat": request.matchdict["subcat_slug"]
     }
     
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     cursor.execute("SELECT id FROM bulbs_subcategory WHERE slug = %s", 
         (slugs.get("subcat"), ))
     

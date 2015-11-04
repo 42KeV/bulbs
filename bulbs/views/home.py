@@ -1,5 +1,5 @@
-from bulbs.resources import connection
-from bulbs.resources import helpers
+from bulbs.components import db
+from bulbs.components import helpers
 from pyramid.view import view_config
 
 
@@ -49,7 +49,7 @@ def subcategories(cursor, category_id=None):
 
 @view_config(route_name="home", renderer="home.mako")
 def response(request):
-    cursor = connection.con.cursor()
+    cursor = db.con.cursor()
     cat_data = categories(cursor)
     subcat_data = list(subcategories(cursor))
 
