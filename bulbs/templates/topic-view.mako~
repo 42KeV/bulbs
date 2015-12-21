@@ -17,7 +17,7 @@
 % for post in posts:
     % if loop.index == 0:
         <div class="post-container">
-            <section class="large-12 columns ">
+            <section class="large-12 columns text-center">
                 <h2 class="post-title">${post.get("title")}</h2>
             </section>
         </div>

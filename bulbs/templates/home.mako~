@@ -1,14 +1,5 @@
 <%inherit file="base.mako"/>
 
-<%
-    ident = request.session.get("identity") or False  
-    
-    if ident:
-        is_logged_in = True
-    else:
-        is_logged_in = False
-%>
-
 <br>
 
 <div class="row">

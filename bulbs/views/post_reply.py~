@@ -37,7 +37,7 @@ def response(request):
         post_subject = request.params.get("subject")
         post_message = request.params.get("message")
         
-        username = request.session.get("identity").get("username")
+        username = request.session.get("identity").username
 
         post_written = reply_to_topic(
             post_subject,

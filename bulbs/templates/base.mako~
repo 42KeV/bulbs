@@ -105,7 +105,7 @@
                                 <li><a href="/" class="button small secondary ">Home</a></li>
                                 
                                 % if is_logged_in:
-                                    % if ident.get("group_id") == 3:
+                                    % if ident.group_id == 3:
                                         <li><a href="/admin" class="button secondary small ">Admin CP</a></li>
                                     % endif--> 
                                     <li><a href="/usercp" class="button secondary small ">User CP</a></li>

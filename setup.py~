@@ -17,7 +17,7 @@ requires = [
     'pyramid_beaker',
     'psycopg2',
     'bcrypt',
-    'unicode-slugify'
+    'slugify'
     ]
 
 def setupdb():

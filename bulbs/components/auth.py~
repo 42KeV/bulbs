@@ -31,7 +31,7 @@ def whois(username):
         cursor.execute("SELECT id, username, group_id FROM bulbs_user WHERE username = %s", 
             (username, ))
         data = cursor.fetchone()
-        userinfo = dict(id=data[0], username=data[1], group_id=data[2])
+        userinfo = dict(id=data[0], username=data[1])
     except TypeError:
         # username specified doesn't exist
         return None

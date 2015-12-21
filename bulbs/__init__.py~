@@ -11,9 +11,6 @@ from bulbs.components import db
 def notfound(request):
     return Response("not found, dude", status="404 Not Found")
 
-def unauthorized(request):
-    return Response("You are not authorized to view this page.")
-
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
@@ -49,7 +46,7 @@ def main(global_config, **settings):
     config.add_route('topic', '/{cat_slug}/{subcat_slug}/{topic_slug}')
     #config.add_view(error_view, renderer='error.mako', context=NotFound)
 
-    #config.add_view('unauthorized', renderer='errors/unauthorized.mako')
+    config.add_view(unauthorized_view, renderer='unauthorized.mako')
     
     db.init()
     config.scan()

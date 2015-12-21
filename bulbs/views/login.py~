@@ -1,6 +1,6 @@
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-from bulbs.components.auth import checkpw, whois
+from bulbs.components.auth import checkpw
 
 @view_config(route_name="login", renderer="login.mako")
 def response(request):
@@ -10,7 +10,7 @@ def response(request):
         authorized = checkpw(username, password)
         
         if authorized:
-            request.session["identity"] = whois(username)
+            request.session["identity"] = auth.get("session")
             url = request.route_url("home")
             return HTTPFound(location=url)
     

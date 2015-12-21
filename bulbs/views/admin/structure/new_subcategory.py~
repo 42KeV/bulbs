@@ -3,8 +3,7 @@ from bulbs.components import db
 from bulbs.components.helpers import generate_slug
 
 
-def destined_subcat_id():
-    cursor = db.con.cursor()
+def future_subcategory_id(cursor):
     cursor.execute("SELECT last_value FROM bulbs_subcategory_id_seq")
     future_id = cursor.fetchone()[0] + 1
 
@@ -24,20 +23,20 @@ def main(request):
     categories = map(catinfo, cat_data)
     
     if request.method == "POST":
-        subcat_name = request.params.get("subcatname")
-        cat_id = request.params.get("catid")
-        subcat_desc = request.params.get("subcatdesc")
-        subcat_rank = request.params.get("subcatrank")
-        subcat_slug = request.params.get("subcatslug")
+        subcategory_name = request.params.get("subcatname")
+        category_id = request.params.get("catid")
+        subcategory_desc = request.params.get("subcatdesc")
+        subcategory_rank = request.params.get("subcatrank")
+        subcategory_slug = request.params.get("subcatslug")
         
         # temporary workaround for mysterious subcatslug empty string
-        if len(subcat_slug) == 0:
-            subcat_slug = None
+        if len(subcategory_slug) == 0:
+            subcategory_slug = None
         
-        if subcat_slug is None:
-            subcat_slug = generate_slug(
-                subcat_name, 
-                destined_subcat_id(),
+        if subcategory_slug is None:
+            subcategory_slug = generate_slug(
+                subcategory_name, 
+                future_subcategory_id(),
                 "bulbs_subcategory"
             )
 
@@ -52,11 +51,11 @@ def main(request):
         cursor.execute(
             "INSERT INTO bulbs_subcategory (title, description, category_id, date, ip, slug) \
              VALUES (%s, %s, %s, now(), %s, %s)", (
-                subcat_name, 
-                subcat_desc,
-                cat_id,
+                subcategory_name, 
+                subcategory_desc,
+                category_id,
                 request.client_addr, 
-                subcat_slug
+                subcategory_slug
             )
         )
         

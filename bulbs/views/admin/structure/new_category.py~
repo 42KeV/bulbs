@@ -29,6 +29,7 @@ def main(request):
         
         if category_slug is None:
             category_slug = generate_slug(
+                cursor,
                 category_name, 
                 future_category_id(cursor),
                 "bulbs_category"

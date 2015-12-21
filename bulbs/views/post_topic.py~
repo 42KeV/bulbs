@@ -16,7 +16,7 @@ def response(request):
     if request.method == "POST":            
         post_subject = request.params.get("subject")
         post_message = request.params.get("message")
-        username = request.session.get("identity").get("username")
+        username = request.session.get("identity").username
         
         cursor = db.con.cursor()
         cursor.execute(

@@ -43,7 +43,18 @@ to do:
 
 
 
+--
+if you get the error:
 
+ERROR:  could not open extension control file "/usr/local/share/postgresql/extension/pgcrypto.control": No such file or directory
+
+you do not have the pgcrypto extension installed
+
+
+serious:
+   home.mako template is missing
+ --
+ 
  
  --  
 psycopg2.ProgrammingError: function decrypt(bytea, unknown, unknown) does not exist
