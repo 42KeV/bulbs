@@ -6,8 +6,9 @@ before it is released:
 2. regular members must not be able to edit posts except their own ! DONE
 3. setup should be easier, create an installation page to make installation more user friendly.
 4. create and maintain documentation !DONE
-5. usernames must not be case sensitive
+5. usernames must not be case sensitive !DONE
 6. do encryption within the application, instead of the database !DONE
+7. don't use the response module, just route url to a error view
 
 
 less important stuff:

@@ -25,14 +25,14 @@ def topics(cursor, subcategory_id, page):
             
         thread_id = thread[0]
         user_id = thread[2]
-        stats = (helpers.number_of_views(cursor, thread_id),
-            helpers.number_of_replies(cursor, thread_id)
+        stats = (helpers.number_of_views(thread_id),
+            helpers.number_of_replies(thread_id)
             #d_helpers.last_post(cursor, None, parent_post=thread_id)
         )
         
         return dict(keys_values,
-            author=helpers.username_from_id(cursor, user_id),
-            last_post=helpers.last_post(cursor, None, parent_post=thread_id),
+            author=helpers.username_from_id(user_id),
+            last_post=helpers.last_post(None, parent_post=thread_id),
             stats=statinfo(stats)
         )
 
@@ -67,8 +67,8 @@ def response(request):
         
     try:
         threads = topics(cursor, subcategory_id, page)
-        title = helpers.subcategory_title_from_id(cursor, subcategory_id)
-        moderators = helpers.subcategory_moderators(cursor, subcategory_id)
+        title = helpers.subcat_title_from_id(subcategory_id)
+        moderators = helpers.subcat_moderators(subcategory_id)
     except ValueError as e:
         raise ValueError("invalid subcategory id passed")
           

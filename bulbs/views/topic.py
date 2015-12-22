@@ -1,64 +1,64 @@
+from pyramid import threadlocal
 from pyramid.view import view_config
 from pyramid.response import Response
 from bulbs.components import helpers
 from bulbs.components import db
-from itertools import chain
 
 
-def topic_content(cursor, thread_id, page):
-    def metainfo(user_id):
-        keys = "username", "user_title", "karma", "avatar", "post_count"
+def posterinfo(user_id):
+    ''' returns a dict of profile information for the user id specified in the argument '''
+
+    keys = "username", "title", "karma", "avatar", "post"
+    cursor = db.con.cursor()
+    cursor.execute(
+        "SELECT username, title, karma, avatar FROM bulbs_user WHERE id = %s",
+        (user_id, ))
+    profile = list(cursor.fetchone())
         
+    try:
         cursor.execute(
-            "SELECT username, title, karma, avatar FROM bulbs_user WHERE id = %s",
-                (user_id, )
-        )
-        profile = cursor.fetchone()
-        
-        cursor.execute(
-            "SELECT count(*) FROM bulbs_post WHERE user_id = %s", (user_id, )
-        )
-        postcount = cursor.fetchone()[0]
-        
-        datatuples = profile, (postcount, )
-        data = list(chain.from_iterable(datatuples))
-        keys_values = zip(keys, data)
-        
-        return dict(keys_values)
-        
-    def postinfo(post):
-        keys = "id", "subcat_id", "user_id", "title", "content", "date", "ip"
-        user_id = post[2]
-        
-        meta = metainfo(user_id)
-        keys_values = zip(keys, post)
-        
-        return dict(keys_values, **meta)
+            "SELECT count(*) FROM bulbs_post WHERE user_id = %s", (user_id, ))
+        posts = cursor.fetchone()[0]
+    except Exception as e:
+        # user id specified wasn't found
+        print (e)
+        raise SystemError("what the hELL")
 
-    def postrange(page, thread_id):
-        postlimit = 15 # max 15 posts per page
-        startindex = page*postlimit-postlimit # grab the appropiate posts for the page
-        
-        cursor.execute(
-            "SELECT id, subcategory_id, user_id, title, content, \
-            to_char(date, 'Mon FMDD, YYYY HH:MI'), ip FROM bulbs_post \
-            WHERE id = %s OR parent_post = %s ORDER BY date LIMIT %s OFFSET %s",
-                (thread_id, thread_id, postlimit, startindex)
-        )
-        
-        posts = cursor.fetchall()
-        
-        return posts
-        
-    data = postrange(page, thread_id)
-    content = map(postinfo, data)
-    
-    return content
+    profile.append(posts)
+    keys_values = zip(keys, profile)
 
+    return dict(keys_values)
+
+def postinfo(post):
+    keys = "id", "subcat_id", "user_id", "title", "content", "date", "ip"
+    user_id = post[2]
+    author = posterinfo(user_id)
+    keys_values = zip(keys, post)
+
+    return dict(keys_values, **author)
+
+def page_posts(page, thread_id):
+    ''' returns a list of tuples of all the posts that should be displayed for the specified page number of a thread '''
+
+    registry = threadlocal.get_current_registry()
+    limit = int(registry.settings.get("posts_per_page"))
+
+    start_index = page*limit-limit
+    cursor = db.con.cursor()
+    cursor.execute(
+        "SELECT id, subcategory_id, user_id, title, content, \
+        to_char(date, 'Mon FMDD, YYYY HH:MI'), ip FROM bulbs_post \
+        WHERE id = %s OR parent_post = %s ORDER BY date LIMIT %s OFFSET %s",
+        (thread_id, thread_id, limit, start_index)
+    )
+    posts = cursor.fetchall()
+
+    return posts
 
 @view_config(route_name='topic', renderer='topic-view.mako')
 def response(request):
-    """ This view function is called when a thread is opened and returns the posts """
+    ''' This view function is called when a thread is opened and returns the posts '''
+
     slug = {
         "cat": request.matchdict.get("cat_slug"),
         "subcat": request.matchdict.get("subcat_slug"),
@@ -66,42 +66,38 @@ def response(request):
     }
     
     cursor = db.con.cursor()
-    cursor.execute("SELECT id FROM bulbs_post WHERE slug = %s AND parent_post IS NULL", (slug.get("topic"), ))
-    
+
     try:
-        thread_id = cursor.fetchone()[0]
+        cursor.execute("SELECT id FROM bulbs_post WHERE slug = %s AND parent_post IS NULL", (slug.get("topic"), ))
+        topic_id = cursor.fetchone()[0]
     except Exception as e:
         return Response("Invalid thread ID specified")
         
-    rootpost = helpers.is_root_post(cursor, thread_id)
+    root_post = helpers.is_root_post(topic_id)
     
-    if not rootpost:
+    if not root_post:
         return Response("Invalid thread ID specified")
         
     page_id = request.params.get("page")
     page = 1 if page_id is None else int(page_id)
-        
-    content = list(topic_content(cursor, thread_id, page))
+    data = page_posts(page, topic_id)
+    content = list(map(postinfo, data))
 
-    subcategory_id = content[0]["subcat_id"]
-    subcategory_title = helpers.subcategory_title_from_id(cursor, subcategory_id)  
+    subcat_id = content[0]["subcat_id"]
+    subcat_title = helpers.subcat_title_from_id(subcat_id)  
     
-    cursor.execute("SELECT title from bulbs_Post WHERE id = %s", (thread_id, ))
+    cursor.execute("SELECT title from bulbs_Post WHERE id = %s", (topic_id, ))
     topic_title = cursor.fetchone()[0]
     
-    cursor.execute("UPDATE bulbs_PostView SET views = views + 1 WHERE post_id = %s", (thread_id, ))
+    cursor.execute("UPDATE bulbs_PostView SET views = views + 1 WHERE post_id = %s", (topic_id, ))
     db.con.commit()
-    
-    cursor.execute("SELECT isLocked from bulbs_Post WHERE id = %s", (thread_id, ))
-    thread_locked = cursor.fetchone()[0]
 
     return {
         'project': request.registry.settings.get("site_name"),
         'title': topic_title,
         'slug': slug,
-        'topic_id': thread_id,
-        'subcat_name': subcategory_title,
+        'topic_id': topic_id,
+        'subcat_name': subcat_title,
         'posts': content,
-        'thread_is_locked': thread_locked,
-        'pages': helpers.thread_pages(cursor, page)
+        'pages': helpers.thread_pages(topic_id)
     }

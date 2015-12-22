@@ -1,6 +1,29 @@
 <%inherit file="base.mako"/>
+
+
 <br>
 
+<div class="row">
+    <div class="large-6 columns">
+        <div class="left">
+            <ul class="breadcrumbs">
+	            <li><a href="/">Home</a></li>
+	            <li class="current"><a href="#">${title}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="">        
+        <div class="small-6 columns">
+            % if request.session.get("identity") is not None:
+                <div class="right">
+                    <a href="${slugs.get('subcat')}/posting-new" class="button small">Post topic</a>
+                    <a href="#" class="button small">Post poll</a>
+                </div>
+            % endif
+        </div>
+    </div>
+</div>
 <div class="large-12 columns">
 
     <div class="row">
@@ -11,27 +34,6 @@
                 % endfor
             </p>
         % endif
-    </div>
-
-    <div class="subcat-header row">
-        <div class="medium-8 columns">
-    
-            <div class="forum-nav">
-                <ul class="breadcrumbs">
-                    <li><a href="/">Home</a></li>
-                    <li class="current"><a href="#">${title}</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="small-4 columns">
-            % if request.session.get("identity") is not None:
-                <div class="right">
-                    <a href="${slugs.get('subcat')}/posting-new" class="button small">Post topic</a>
-                    <a href="#" class="button small">Post poll</a>
-                </div>
-            % endif
-        </div>
     </div>
 
     <hr class="seperator">

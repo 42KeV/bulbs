@@ -4,13 +4,9 @@ from pyramid.response import Response
 
 @view_config(route_name="usercp", renderer="user-cp.mako")
 def response(request):
-    ident = request.session.get("identity")
+    ident = request.session.get("identity")    
     
-    print (ident)
-    print (ident.is_authorized())
-    
-    
-    if ident is None or not ident.is_authorized():
+    if ident is None:
         return Response("You are not authorized to view this page. Please login to continue")
     
     #if ident is not None:

@@ -7,7 +7,7 @@ def checkpw(username, password):
     cursor = db.con.cursor()
 
     try:
-        cursor.execute("SELECT password FROM bulbs_user WHERE username = %s", (username, ))
+        cursor.execute("SELECT password FROM bulbs_user WHERE lower(username) = %s", (username.lower(), ))
         stored_password = cursor.fetchone()[0].tobytes()
     except (IndexError, TypeError):
         # specified user doesn't exist
@@ -28,8 +28,9 @@ def whois(username):
     cursor = db.con.cursor()
     
     try:
-        cursor.execute("SELECT id, username, group_id FROM bulbs_user WHERE username = %s", 
-            (username, ))
+        cursor.execute(
+            "SELECT id, username, group_id FROM bulbs_user WHERE lower(username) = %s", 
+            (username.lower(), ))
         data = cursor.fetchone()
         userinfo = dict(id=data[0], username=data[1], group_id=data[2])
     except TypeError:

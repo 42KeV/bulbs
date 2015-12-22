@@ -1,3 +1,4 @@
+from pyramid import threadlocal
 from bulbs.components import db
 from psycopg2.extensions import AsIs
 from slugify import slugify
@@ -15,105 +16,106 @@ def generate_slug(data, id, table):
 
     return "{0}-{1}".format(slug, id)
 
-def username_from_id(cursor, user_id):
-    '''Returns the corresponding username from the id'''
+def username_from_id(user_id):
+    ''' Returns the username corresponding to the user id '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute(
-            "SELECT username FROM bulbs_User WHERE id = %s", (user_id, )
-        )
-        
+            "SELECT username FROM bulbs_User WHERE id = %s", (user_id, ))        
         username = cursor.fetchone()[0]
     except Exception as e:
-        raise ValueError("failed to get username")
+        raise ValueError("failed to get username, ", e)
         
     return username
     
-def number_of_threads(cursor, forum_id):
-    '''Returns the number of threads in a specific forum'''
+def number_of_threads(forum_id):
+    ''' Returns the number of threads in a specific forum '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute(
             "SELECT count(id) FROM bulbs_Post WHERE subcategory_id = %s \
-             AND parent_post IS NULL", (forum_id, )
-         )
-         
+             AND parent_post IS NULL", (forum_id, ))
         views = cursor.fetchone()[0]
     except Exception as e:
-        raise ValueError("failed to get amount of threads")
+        raise ValueError("failed to get amount of threads, ", e)
         
     return views
     
-def number_of_posts(cursor, forum_id):
-    '''Returns the number of posts in a specific forum'''
+def number_of_posts(forum_id):
+    ''' Returns the number of posts in a specific forum '''
     try:
+        cursor = db.con.cursor()
         cursor.execute(
             "SELECT count(id) FROM bulbs_Post WHERE subcategory_id = %s \
-             AND parent_post IS NOT NULL", (forum_id, )
-         )
-         
+             AND parent_post IS NOT NULL", (forum_id, ))
         posts = cursor.fetchone()[0]
     except Exception as e:
-        raise ValueError("failed to get amount of posts")
+        raise ValueError("failed to get amount of posts, ", e)
         
     return posts
     
-def number_of_views(cursor, thread_id):
-    '''Returns the number of views in a specific thread'''
+def number_of_views(thread_id):
+    ''' Returns the number of views in a specific thread '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute(
-            "SELECT views FROM bulbs_PostView WHERE post_id = %s", (thread_id, )
-        )
-        
+            "SELECT views FROM bulbs_PostView WHERE post_id = %s", (thread_id, ))
         views = cursor.fetchone()[0]
     except ValueError as e:
-        raise ValueError("failed to get amount of thread views")
+        raise ValueError("failed to get amount of thread views, ", e)
         
     return views
     
-def number_of_replies(cursor, thread_id):
-    '''Returns the number of replies in a specific thread'''
+def number_of_replies(thread_id):
+    ''' Returns the number of replies in a specific thread '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute(
             "SELECT count(id) FROM bulbs_Post WHERE parent_post = %s", 
-                (thread_id, )
-        )
-    
+                (thread_id, ))
         replies = cursor.fetchone()[0]
     except ValueError as e:
-        raise ValueError("failed to get amount of thread replies")
+        raise ValueError("failed to get amount of thread replies, ", e)
 
     return replies
     
-def subcategory_title_from_id(cursor, subcategory_id):
-    '''Returns the corresponding forum title from id'''
+def subcat_title_from_id(subcategory_id):
+    ''' Returns the title corresponding to the subcategory id '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute(
-            "SELECT title FROM bulbs_Subcategory WHERE id = %s", (subcategory_id, )
-        )
-        
+            "SELECT title FROM bulbs_Subcategory WHERE id = %s", (subcategory_id, ))
         title = cursor.fetchone()[0]
     except Exception as e:
-        raise ValueError("failed to get subcat name from id")
+        raise ValueError("failed to get subcat name from id, ", e)
         
     return title
     
-def subcategory_moderators(cursor, subcategory_id):
-    '''Returns the moderators in a specific forum'''
+def subcat_moderators(subcategory_id):
+    ''' Returns a list of moderators in a specific forum '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute(
             "SELECT subcat_id, user_id, username FROM bulbs_Moderator \
-             WHERE subcat_id = %s", (subcategory_id, )
-        )
-        
+             WHERE subcat_id = %s", (subcategory_id, ))
         mods = cursor.fetchone()[0]
     except TypeError as e:
         return None # no moderators for the forum in question
         
-    return mods
+    return list(mods)
     
-def last_post(cursor, subcategory_id, parent_post=None):
+def last_post(subcategory_id, parent_post=None):
     '''Returns the last post from a specific forum. If parent_post is not None, returns last post data from a thread'''
     #parent_post is set to None by default, if parent post is provided then we'll return the last post data for a thread
     
+    cursor = db.con.cursor()
+
     if parent_post is not None:
         cursor.execute(
             "SELECT user_id, to_char(date, 'Mon FMDD, YYYY HH:MI AM') FROM bulbs_post \
@@ -138,7 +140,7 @@ def last_post(cursor, subcategory_id, parent_post=None):
         "date":    data[1]
     }
 
-    last_post["username"] = username_from_id(cursor, last_post["user_id"])
+    last_post["username"] = username_from_id(last_post["user_id"])
     
     if parent_post is not None: 
         # this is true if this function was queried for a thread
@@ -164,25 +166,29 @@ def last_post(cursor, subcategory_id, parent_post=None):
         
     return last_post
     
-def is_root_post(cursor, post_id):
-    '''Returns true if post is the first in a thread'''
+def is_root_post(post_id):
+    ''' Returns True if the post_id doesn't have a parent (is first post in a topic) '''
+
     try:
+        cursor = db.con.cursor()
         cursor.execute("SELECT parent_post FROM bulbs_Post WHERE id = %s", (post_id, ))
         parent_id = cursor.fetchone()[0]
-    except TypeError as e:
+    except TypeError:
+        # the post_id specified doesn't exist
         return False
         
     return True
     
-def thread_pages(cursor, thread_id):
-    '''Returns the amount of threads that should be displayed per forum page'''
-    rows_per_page = 15        
+def thread_pages(thread_id):
+    ''' Returns the amount of pages a thread should have '''
+    registry = threadlocal.get_current_registry()
+    limit = int(registry.settings.get("posts_per_page"))
+
+    cursor = db.con.cursor()
     cursor.execute(
         "SELECT count(*) FROM bulbs_Post WHERE id = %s OR parent_post = %s",
-            (thread_id, thread_id)
-    )
-    
+            (thread_id, thread_id))
     total_rows = cursor.fetchone()[0]
-    pages = int(total_rows / 15 if total_rows % 15 == 0  else (total_rows / 15) + 1)
-    
+    pages = int(total_rows / limit if total_rows % limit == 0  else (total_rows / limit) + 1)
+   
     return pages

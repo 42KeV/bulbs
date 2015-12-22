@@ -38,9 +38,9 @@ def subcategories(cursor, category_id=None):
         
         return dict(keys_values,
             id=id,
-            threads=helpers.number_of_threads(cursor, id),
-            posts=helpers.number_of_posts(cursor, id),
-            last_post=helpers.last_post(cursor, id)
+            threads=helpers.number_of_threads(id),
+            posts=helpers.number_of_posts(id),
+            last_post=helpers.last_post(id)
         )
         
     subcategories_ = map(foruminfo, children)

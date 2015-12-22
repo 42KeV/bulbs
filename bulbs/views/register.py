@@ -4,17 +4,14 @@ from bulbs.components import db
 from bulbs.components.security import generate_password
 
 
-def username_taken(cursor, username):
+def username_taken(username):
+    cursor = db.con.cursor()
     cursor.execute(
-        "SELECT id FROM bulbs_user WHERE username = %s", (username, )
-    )
-
-    taken = cursor.fetchone()
-    
-    if taken:
-        return True
-    
-    return False
+        "SELECT id FROM bulbs_user WHERE lower(username) = %s", (username.lower(), ))
+    data = cursor.fetchone()
+    if data is None:
+        return False
+    return True
 
 @view_config(route_name="register", renderer="register.mako")
 def response(request):
@@ -25,24 +22,24 @@ def response(request):
         password = request.params.get("password1")
         password_again = request.params.get("password2")
         email = request.params.get("email")
-        
-        cursor = db.con.cursor()
-        
-        if username_taken(cursor, username):
+
+        if username_taken(username):
             return Response("username already exists. please choose a different one.")
 
         if password == password_again:
+            cursor = db.con.cursor()
             hashed_password = generate_password(password)
             cursor.execute(
-                "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title) \
-                VALUES (%s, %s, %s, %s, now(), %s, %s)",
+                "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title, group_id) \
+                VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
                 (
                     username, 
                     hashed_password, 
                     email, 
                     request.client_addr, 
                     0,
-                    "Newbie"
+                    "Newbie",
+                    1
                 )
             )
                             

@@ -2,6 +2,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from bulbs.components.auth import checkpw, whois
 
+
 @view_config(route_name="login", renderer="login.mako")
 def response(request):
     if request.method == "POST":
@@ -9,6 +10,8 @@ def response(request):
         password = request.params.get("password")
         authorized = checkpw(username, password)
         
+        print ("AUTH:--------------$$", authorized)
+
         if authorized:
             request.session["identity"] = whois(username)
             url = request.route_url("home")

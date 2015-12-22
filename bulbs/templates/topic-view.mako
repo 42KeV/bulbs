@@ -2,17 +2,33 @@
 
 <br>
 
-<div class="row">
-    <div class="large-12 columns">
-        <div class="left">
-            <ul class="breadcrumbs">
-                <li><a href="/">Home</a></li>
-                <li><a href="../${slug.get('subcat')}">${subcat_name}</a></li>
-                <li class="current"><a href="#">${title}</a></li>
-            </ul>
-        </div>
+<div class="large-12 columns">
+    <div class="left">
+        <ul class="breadcrumbs">
+            <li><a href="/">Home</a></li>
+            <li><a href="../${slug.get('subcat')}">${subcat_name}</a></li>
+            <li class="current"><a href="#">${title}</a></li>
+        </ul>
     </div>
 </div>
+
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        % for n in range(pages):
+            <li><a href="?page=${n+1}">${n+1}</a></li>
+        % endfor
+        <li>
+            <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 
 % for post in posts:
     % if loop.index == 0:
