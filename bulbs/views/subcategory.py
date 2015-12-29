@@ -1,4 +1,5 @@
 from pyramid.view import view_config
+from pyramid.response import Response
 from bulbs.components import helpers
 from bulbs.components import db
 
@@ -41,7 +42,7 @@ def topics(cursor, subcategory_id, page):
     
     return content
 
-@view_config(route_name="subcategory", renderer="subcat-view.mako")
+@view_config(route_name="subcategory", renderer="subcat.mako")
 def response(request):
     """ This takes a subcategory slug and returns all of its threads, replies and views """
     page_id = request.params.get("page")

@@ -1,3 +1,12 @@
+before first production release:
+1. add authorization policy
+2. create a more user friendly setup, like an installation page
+3. users can edit and delete their own posts
+
+
+
+
+
 remove the topic module from components
 
 

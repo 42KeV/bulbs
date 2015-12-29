@@ -52,14 +52,14 @@ def page_posts(page, thread_id):
         (thread_id, thread_id, limit, start_index)
     )
     posts = cursor.fetchall()
-
+    
     return posts
 
-@view_config(route_name='topic', renderer='topic-view.mako')
+@view_config(route_name='topic', renderer='topic.mako')
 def response(request):
     ''' This view function is called when a thread is opened and returns the posts '''
 
-    slug = {
+    slugs = {
         "cat": request.matchdict.get("cat_slug"),
         "subcat": request.matchdict.get("subcat_slug"),
         "topic": request.matchdict.get("topic_slug")
@@ -68,7 +68,7 @@ def response(request):
     cursor = db.con.cursor()
 
     try:
-        cursor.execute("SELECT id FROM bulbs_post WHERE slug = %s AND parent_post IS NULL", (slug.get("topic"), ))
+        cursor.execute("SELECT id FROM bulbs_post WHERE slug = %s AND parent_post IS NULL", (slugs.get("topic"), ))
         topic_id = cursor.fetchone()[0]
     except Exception as e:
         return Response("Invalid thread ID specified")
@@ -95,7 +95,7 @@ def response(request):
     return {
         'project': request.registry.settings.get("site_name"),
         'title': topic_title,
-        'slug': slug,
+        'slugs': slugs,
         'topic_id': topic_id,
         'subcat_name': subcat_title,
         'posts': content,

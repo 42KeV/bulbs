@@ -84,8 +84,13 @@ def create_topic(subject, content, subcategory_id, ip, username):
     formatted_post = format_post(content)
 
     cursor.execute("SELECT id FROM bulbs_user WHERE username = %s", (username, ))
-    user_id = cursor.fetchone()[0]
-
+    
+    try:
+        user_id = cursor.fetchone()[0]
+    except TypeError as e:
+        print ("user id not found, ", e)
+        return
+        
     cursor.execute("\
         INSERT INTO bulbs_post (subcategory_id, title, content, ispoll, date, user_id, ip, parent_post, latest_reply, isLocked) VALUES \
         (%s, %s, %s, false, now(), %s, %s, NULL, now(), false)", (

@@ -4,6 +4,10 @@ from pyramid.view import view_config
 from pyramid.view import notfound_view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
+
+from pyramid.authentication import AuthTktAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
+
 from bulbs.components import db
 
 
@@ -17,7 +21,15 @@ def unauthorized(request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    
+    authn_policy = AuthTktAuthenticationPolicy("global hellhole of a world", hashalg="sha512")
+    authz_policy = ACLAuthorizationPolicy()
+    
     config = Configurator(settings=settings)
+    
+    config.set_authentication_policy(authn_policy)
+    config.set_authorization_policy(authz_policy)
+    
     config.include('pyramid_mako')
     config.include('pyramid_beaker')
     config.add_static_view('static', 'static', cache_max_age=3600)
@@ -27,7 +39,7 @@ def main(global_config, **settings):
     config.add_route('logout', '/logout')
     config.add_route('contact', '/contact')
     config.add_route('about', '/about')
-    config.add_route('usercp', '/usercp')
+    config.add_route('usercp', '/control-panel')
     config.add_route('manage', '/manage')
     config.add_route('post_edit', '/edit')
     

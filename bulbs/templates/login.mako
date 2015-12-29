@@ -3,37 +3,33 @@
 <br>
 
 <form method="POST">
-    <div class="row">
-        <div class="small-7 small-centered columns">
-            <div class="row"> 
-                <div class="small-3 columns">
-                    <label for="right-label" name="username" class="right inline">Username</label>
-                </div>
-                
-                <div class="small-9 columns">
+    <div class="container">
+        <div class="row">
+            <div class="large-6 large-centered columns">
+                <label>Username
                     <input type="text" name="username">
-                </div>
-            </div>
+                </label>
+            </div>            
         </div>
-    </div>
-    
-    <div class="row">
-        <div class="small-7 small-centered columns">
-            <div class="row"> 
-                <div class="small-3 columns">
-                    <label for="right-label" class="right inline">Password</label>
-                </div>
-                
-                <div class="small-9 columns">
+        
+        <div class="row">
+            <div class="large-6 large-centered columns">
+                <label>Password
                     <input type="password" name="password">
-                </div>
-            </div>
+                </label>
+            </div>            
         </div>
-    </div>
-    
-    <div class="row">
-        <div class="small-5 columns right">
-            <button type="submit" class="button">Sign in</button>
+        
+        <div class="row">
+            <div class="large-6 large-centered columns">
+                <button type="submit" class="button right">Sign in</button>
+            </div>
         </div>
     </div>
 </form>
+
+<script>
+$(function() {
+    $("#nav-sign-in").addClass("active");
+});
+</script>

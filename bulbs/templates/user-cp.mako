@@ -69,7 +69,7 @@
     <div class="row">
         <div class="large-12 columns">
             <label>Biography
-                <textarea rows="6" name="biography"></textarea> <br>
+                <textarea rows="6" name="bio"></textarea> <br>
             </label>
         </div>
     </div>
@@ -93,3 +93,9 @@
         </div>
     </div>
 </form>
+
+<script>
+$(function() {
+    $("#nav-user-cp").addClass("active");
+});
+</script>
