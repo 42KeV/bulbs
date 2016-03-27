@@ -37,19 +37,13 @@
 
             <section class="top-bar-section">
                 <!-- Right Nav Section -->
-                
-                % if is_logged_in:
-                    <ul class="left">
-                        % if ident.get("group_id") == 3:
-                            <li id="nav-admin"><a href="/admin">Admin CP</a></li>
-                        % endif
-                    </ul>
-                % endif
-                
                 <ul class="right">
                     <li id="nav-home"><a href="/">Home</a></li>
 
                     % if is_logged_in:
+                        % if ident.get("group_id") == 3:
+                            <li id="nav-admin"><a href="/admin">Admin CP</a></li>
+                        % endif
                             <li id="nav-user-cp"><a href="/control-panel">User CP</a></li>
                             <li id="nav-inbox"><a href="/inbox">Inbox</a></li>
                             <li id="nav-sign-out"><a href="/logout">Sign out</a></li>

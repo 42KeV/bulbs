@@ -74,8 +74,10 @@ def db_setup(dbname, dbuser, dbpass, dbport):
     return True
 
 def admin_setup(con):
-    db.init()
+    from bulbs.components import db
+    import bulbs.views.register as rview
     username = input("Username: ")
+    
     while 1:
         password = input("Password: ")
         password2 = input("Password: ")
@@ -83,6 +85,7 @@ def admin_setup(con):
             print ("You made a mistake typing in your password, please try again")
         else:
             break
+            
     email = input("Email: ")    
     rview.register_user(username, password, email, "1337")
     

@@ -5,4 +5,4 @@ waitress
 pyramid_beaker
 psycopg2
 bcrypt
-python-slugify
+unicode-slugify

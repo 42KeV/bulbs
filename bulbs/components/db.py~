@@ -5,7 +5,7 @@ import psycopg2
 con = None
 
 def init():
-    '''Initialize the db connection and make it available globally'''
+    '''Initializes the db connection and makes it available globally'''
     config = configparser.RawConfigParser()
     config.read("sql.cfg")
     

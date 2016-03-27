@@ -410,8 +410,8 @@ bulbs/templates/logout.mako
 bulbs/templates/new-reply.mako
 bulbs/templates/new-topic.mako
 bulbs/templates/register.mako
-bulbs/templates/subcat-view.mako
-bulbs/templates/topic-view.mako
+bulbs/templates/subcat.mako
+bulbs/templates/topic.mako
 bulbs/templates/user-cp.mako
 bulbs/templates/user.mako
 bulbs/templates/admin/base.mako
@@ -437,6 +437,7 @@ bulbs/templates/default/user.mako
 bulbs/templates/default/user_cp.mako
 bulbs/templates/default/view-subcat.mako
 bulbs/templates/default/view-topic.mako
+bulbs/templates/errors/unauthorized.mako
 bulbs/views/__init__.py
 bulbs/views/home.py
 bulbs/views/login.py

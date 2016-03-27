@@ -17,8 +17,7 @@ def register_user(username, password, email, ip):
     cursor = db.con.cursor()
     hashed_password = generate_password(password)
     cursor.execute(
-        "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title, group_id) \
-         VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
+        "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title, group_id) VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
             (username, hashed_password, email, ip, 0, "Newbie", 1)
     )
     db.con.commit()

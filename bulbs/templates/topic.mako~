@@ -12,6 +12,7 @@
 .post-info {
     border: 1px solid #999;
 }
+
 .post-header {
     border-radius: 0 0 10px 0;
 }
@@ -28,7 +29,8 @@
             <li class="current"><a href="#">${title}</a></li>
         </ul>
     </div>
-
+    
+    
     <div class="row">
         <nav>
             <ul class="pagination">
@@ -86,7 +88,7 @@
                     
                     <span class="poster-avatar">
                         % if post.get("avatar") is not None:
-                            <img src="${post.get("avatar")}"/>
+                            ${post.get("avatar")}
                         % endif
                     </span>
                 </section>

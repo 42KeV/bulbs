@@ -106,9 +106,8 @@ h4 {
                     
                     <div class="large-2 columns subcat-stats">
                         <% t = "Thread" if subcategory.get("threads") == 1 else "Threads" %>
-                        <% r = "Reply" if subcategory.get("posts") == 1 else "Replies" %>
                         <span class="subcat-threads">${subcategory.get("threads")} ${t}</span>
-                        <span class="subcat-replies">${subcategory.get("posts")} ${r}</span>
+                        <span class="subcat-replies">${subcategory.get("posts")} Replies</span>
                     </div>
                     
                     <div class="large-3 columns subcat-stats">
