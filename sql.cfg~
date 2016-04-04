@@ -1,7 +1,0 @@
-[auth]
-host = localhost
-name = bulbs_db
-user = bulbs_user
-pass = lambdatest
-port = 5432
-

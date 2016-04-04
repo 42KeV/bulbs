@@ -1,20 +1,19 @@
 <%inherit file="base.mako"/>
 
 <%
-    
     page = request.params.get("page")
     if page is not None:
         page = int(page)
-
 %>
 
 <style>
-.post-info {
-    border: 1px solid #999;
+.post-container {
+    background-color: #d3d3d3;
 }
-.post-header {
-    border-radius: 0 0 10px 0;
-}
+
+/*.post-container:nth-of-type(2n) > .row {
+    background-color: #d3d3d3;
+}*/
 </style>
 
 
@@ -51,7 +50,7 @@
     
     % for post in posts:
             % if loop.index == 0 and (page == 1 or page is None):
-                <div class="row row-header-container post-container" style="border-radius: 5px 5px 0 0">
+                <div class="row row-header-container" style="border-radius: 5px 5px 0 0">
                     <section class="large-12 columns">
                         <h2 class="post-title">${title}</h2>
                     </section>
@@ -64,8 +63,6 @@
                     <span class="post-date">${post.get("date")}</span>
                     <div id="#post-${post.get('id')}"></div>
                 </section>
-                
-
                 
                 <section class="large-6 columns post-options">
                 % if request.session.get("identity") is not None:
