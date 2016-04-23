@@ -1,14 +1,43 @@
 body {
+    padding: 0;
     font-family: "Open Sans", sans-serif;
     background-color: #fff;
 }
 
-.seperator {
-    height: 1em;
+.top-nav-button a:hover {
+    background-color: #2A2A2A;
+}
+.top-bar {
+    background-color: #42586e;
 }
 
-.post-header {
-    /*background-color: #999999;*/
+.top-bar-section li:not(.has-form) a:not(.button) {
+    background-color: #42586e;
+    transition: background 500ms ease;
+}
+.top-bar-section li:not(.has-form) a:hover:not(.button) {
+    background-color: #263340;
+}
+
+.top-bar-section li.active:not(.has-form) a:not(.button) {
+    background-color: #8099B3;
+    transition: background 500ms ease;
+}
+.top-bar-section li.active:not(.has-form) a:hover:not(.button) {
+    background-color: #8099B3;
+}
+
+#site-info {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#67426e+0,42586e+100 */
+    background: #67426e; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #67426e 0%, #42586e 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #67426e 0%,#42586e 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #67426e 0%,#42586e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#67426e', endColorstr='#42586e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}     
+
+.seperator {
+    height: 1em;
 }
 
 .row-container {
@@ -19,36 +48,15 @@ body {
     cursor: pointer;
 }
 
-/*.subcat-container {
-    /*background-color: #1B3147;#22172A;
-    padding: 20px;
-    color: #333;
-    
-    transition: background 500ms ease;
-    cursor: pointer;
-}*/
-
 .row-container:hover {
-    background-color: #e9e9e9;
+    background-color: #F5F5F5;
 }
-
-/*.subcat-container:hover {
-    background-color: #E9E9E9;/*#403548;
-}*/
 
 .row-header-container {
     background-color: #42586e;
     padding: 5px 0 5px 0;
     color: #fff;
 }
-
-/*
-
-.cat-container {
-    background-color: #42586E;
-    padding: 5px 0 5px 0;
-    color: #fff;
-}*/
 
 .subcat-stats {
     display: block;
@@ -58,30 +66,9 @@ h4 {
     color: #8374AE;
 }   
 
-
-
 .subcat-stats > span {
     display: block;
 }
-
-
-
-
-
-/*
-.subcat {
-    padding: 10px;
-    background-color: #fff;
-}
-
-.subcat-name > a {
-    font-size: 21px;
-}
-
-.forum-nav {
-    bottom: 0;
-}
-*/
 
 .post-options {
     padding: 0;
@@ -105,173 +92,45 @@ h4 {
     height: 120px;
     width: 120px;
 }
+
+
+
+
+
+/* ===== Homepage styles ===== */
+
+.subcat-title {
+    margin: 0; 
+    padding: 0;
+}
 /*
-.subcat-stats > span {
-    display: block;
+.subcat-column {
+    padding: 20px;
+    transition: background 500ms ease;
 }
 
-.subcat-title {
-    display: block;
+.lastpost-column {
+    padding: 20px;
 }
 
-.post-container {
-    padding: 2px;
+.subcat-column:hover {
+    background-color: #f5f5f5;
 }
 
-/*.container {
-    width: 95%;
-    padding: 15px;
-    margin: auto;
+*/
+.subcat-column:hover {
+   color: #555; 
 }
 
-body {
-    background-color: #fff;
-    background-repeat: repeat;
+/*
+.subcat-column {
+    transition: background 500ms ease;
+    cursor: pointer;
 }
 
-.subcat-title {
-    padding-left: 5px;
-}
-
-.subcat-desc {
-    padding-left: 5px;
-}
-
-.subcat-stats {
-
-}
-
-.subcat-last {
-
-}
-
-.subcat:not(:last-child) {
-    border: 1px solid #ddd;
-    background-color: #E0E4CC;
+.subcat-column:hover {
+    background-color: #f5f5f5;
 }
 
 
-.subcat:not(:last-child) {
-    border-bottom: 1px solid #cccccc;
-}
 
-.subcat {
-    background-color: #eee;
-    padding: 5px;
-}
-
-.topic {
-    padding: 5px;
-}
-
-.category-header {
-    font-weight: bold;
-    padding: 2px;
-    background-image: url(http://subtlepatterns.com/patterns/congruent_pentagon.png);
-    color: #4A4A4A;
-    border-bottom: 1px solid #bbb;
-}
-
-.topic-header {
-    padding: 2px;
-    background-image: url(http://subtlepatterns.com/patterns/congruent_pentagon.png);
-    color: #4A4A4A;
-    font-weight: bold;
-    border-bottom: 1px solid #bbb;
-}
-
-.thread-post {
-    background-color: #eef;
-    position: relative;
-    border: 1px solid #bbb;
-}
-
-footer > .panel {
-    margin-top: 10px;
-}
-
-.dark-border {
-    border: 1px solid #cccccc;
-}
-
-.topic:nth-child(2) {
-    background-color: red;
-}
-
-/*thread post display props
-
-.post-meta > span {
-    display: block;
-    text-align: center;
-}
-
-.thread-post {
-    position: relative;
-
-}
-
-.post-username {
-    font-weight: bold;
-    background-color: #f4f4f4;
-    border-radius: 25px 25px 500px 500px;
-    
-    box-sizing: border-box;
-    border-left:1px solid #ddf;
-    border-bottom:1px solid #ddf;
-    border-right:1px solid #ddf;
-    
-}
-
-.post-title {
-    font-weight: bold;
-    padding-left: 12px;
-}
-
-/*.post-title {
-    width: 100%;
-    position: relative;
-    top: 0;
-    padding: 3px;
-    padding-left: 50px;
-    padding-right: 50px;
-    background-color: #669999;
-    color: #eef;
-    border-radius: 0 0 5px 5px;
-}
-
-.post-options > .button {
-    margin-bottom: 5px;
-}
-
-.post-body {
-    word-wrap: break-word;
-}
-
-/*.post-header {
-    background-color: #669999;
-    color: #eef;
-}*/
-
-/*.post-header {
-    border-radius: 25px 0 0 500px;
-    padding-left: 20px;
-    
-    
-    box-sizing: border-box;
-    border-left:1px solid #ddf;
-    border-bottom:1px solid #ddf;
-}
-.post-body {
-    padding-left: 20px;
-}
-
-.thread-post {
-    min-height: 150px;
-}
-
-.post-header {
-    background-image: url("http://subtlepatterns.com/patterns/congruent_pentagon.png");
-    border-right: 1px solid #bbb;
-    border-top: 1px solid #bbb;
-    border-left: 1px solid #bbb;
-}*/

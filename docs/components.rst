@@ -1,43 +1,15 @@
-***********
-Components
-***********
-
-components.auth module
-----------------------
-
-.. automodule:: bulbs.components.auth
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-components.db module
---------------------
-
-.. automodule:: bulbs.components.db
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-components.helpers module
+:mod:`components` Package
 -------------------------
 
-.. automodule:: bulbs.components.helpers
+.. automodule:: bulbs.components
     :members:
     :undoc-members:
     :show-inheritance:
 
-components.security module
---------------------------
+:mod:`auth` Module
+-----------------
 
-.. automodule:: bulbs.components.security
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-components.topic module
------------------------
-
-.. automodule:: bulbs.components.topic
+.. automodule:: components.auth
     :members:
     :undoc-members:
     :show-inheritance:

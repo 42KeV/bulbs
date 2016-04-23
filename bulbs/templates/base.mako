@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/normalize.css')}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+        <link href='https://fonts.googleapis.com/css?family=Walter+Turncoat|Parisienne' rel='stylesheet' type='text/css'>
+
         <%
             ident = request.session.get("identity") or False  
             
@@ -15,16 +17,14 @@
             else:
                 is_logged_in = False
         %>
-
-        <style>            
-            body {
-                padding: 0;
-            }
-        </style>
-
     </head>
     
-    <body> 
+    <body>
+        <div id="site-info" oldstyle="background-color: #9BCEFF">
+            <div class="row">
+                <h1 style="font-family: 'Walter Turncoat', cursive; font-weight: bold; color: #fff;">FREE GAMES FORUM</h1>
+            </div>
+        </div>
         <nav class="top-bar" data-topbar role="navigation">
             <ul class="title-area">
                 <li class="name">
@@ -47,14 +47,14 @@
                 % endif
                 
                 <ul class="right">
-                    <li id="nav-home"><a href="/">Home</a></li>
+                    <li class="top-nav-button" id="nav-home"><a href="/">Home</a></li>
 
                     % if is_logged_in:
-                            <li id="nav-user-cp"><a href="/control-panel">User CP</a></li>
-                            <li id="nav-inbox"><a href="/inbox">Inbox</a></li>
-                            <li id="nav-sign-out"><a href="/logout">Sign out</a></li>
+                            <li class="top-nav-button" id="nav-user-cp"><a href="/control-panel">User CP</a></li>
+                            <li class="top-nav-button" id="nav-inbox"><a href="/inbox">Inbox</a></li>
+                            <li class="top-nav-button" id="nav-sign-out"><a href="/logout">Sign out</a></li>
                         % else:
-                            <li id="nav-sign-in"><a href="/login">Sign in</a></li>
+                            <li class="top-nav-button" id="nav-sign-in"><a href="/login">Sign in</a></li>
                     % endif
                     <!--
                     <li class="has-dropdown">

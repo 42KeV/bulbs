@@ -1,3 +1,9 @@
+
+create and manage sessions. when sessions expire, add a value to the users account with the date and time that it expired.
+then when the user renews the session, new posts can be fetched
+
+
+
 before first production release:
 1. add authorization policy
 2. create a more user friendly setup, like an installation page

@@ -9,61 +9,7 @@
         is_logged_in = False
 %>
 
-
-
-<style>
-.row-container {
-    padding: 20px;
-    color: #333;
-    
-    transition: background 500ms ease;
-    cursor: pointer;
-}
-
-/*.subcat-container {
-    /*background-color: #1B3147;#22172A;
-    padding: 20px;
-    color: #333;
-    
-    transition: background 500ms ease;
-    cursor: pointer;
-}*/
-
-.row-container:hover {
-    background-color: #e9e9e9;
-}
-
-/*.subcat-container:hover {
-    background-color: #E9E9E9;/*#403548;
-}*/
-
-.row-header-container {
-    background-color: #42586e;
-    padding: 5px 0 5px 0;
-    color: #fff;
-}
-
-/*
-
-.cat-container {
-    background-color: #42586E;
-    padding: 5px 0 5px 0;
-    color: #fff;
-}*/
-
-.subcat-stats {
-    display: block;
-}
-
-h4 {
-    color: #8374AE;
-}   
-
-</style>
-
-
 <br>
-
 
 <div class="container">
     <div class="row">
@@ -94,26 +40,22 @@ h4 {
                 <% last_post = subcategory.get("last_post", None) %>
                 
                 <div class="row row-container" data-cat="${category.get('slug')}" data-subcat="${subcategory.get('slug')}">
-                    <div class="large-7 columns">
-                        <div class="subcat-name">
-                            <h4 style="margin: 0; padding: 0">
-                                ${subcategory.get("title")}
-                            </h4>
-                        </div>
-                        
+                    <div class="large-7 columns subcat-column">
+                        <a href="#"><h4 class="subcat-title">${subcategory.get("title")}</h4></a>
                         <span class="subcat-desc">${subcategory.get("desc")}</span>
                     </div>
                     
-                    <div class="large-2 columns subcat-stats">
+                    <div class="large-2 columns subcat-stats subcat-column">
                         <% t = "Thread" if subcategory.get("threads") == 1 else "Threads" %>
-                        <% r = "Reply" if subcategory.get("posts") == 1 else "Replies" %>
+                        <% r = "Post" if subcategory.get("posts") == 1 else "Posts" %>
+                        
                         <span class="subcat-threads">${subcategory.get("threads")} ${t}</span>
                         <span class="subcat-replies">${subcategory.get("posts")} ${r}</span>
                     </div>
                     
-                    <div class="large-3 columns subcat-stats">
+                    <div class="large-3 columns subcat-stats lastpost-column">
                         % if last_post is not None:
-                            Last post by <a href="#">${last_post.get("username")}</a> on
+                            Last post by <a href="user/${last_post.get('username')}">${last_post.get("username")}</a> on
                             <span class="last-post-date">${last_post.get("date")}</span>
                         % endif
                     </div>
@@ -128,13 +70,19 @@ h4 {
 $(function() {
     $("#nav-home").addClass("active");
     
-    $(".row-container").click(function() {
-        var cat = $(this).attr("data-cat");
-        var subcat = $(this).attr("data-subcat")
-        
-        window.location.href = cat + "/" + subcat;        
+    $(".lastpost-column").click(function() {
+        var parent = $(this).parent();
+        var cat = parent.attr("data-cat");
+        var subcat = parent.attr("data-subcat");
+        window.location.href = cat + "/" + subcat // + topic + page + post_id;
     });
     
+    $(".subcat-column").click(function() {
+        var parent = $(this).parent();
+        var cat = parent.attr("data-cat");
+        var subcat = parent.attr("data-subcat");
+        window.location.href = cat + "/" + subcat;
+    });
     
 });
 </script>

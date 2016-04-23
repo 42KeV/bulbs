@@ -7,13 +7,13 @@
 %>
 
 <style>
-.post-container {
-    background-color: #d3d3d3;
+.post-container > .row {
+    border-left: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;
 }
-
-/*.post-container:nth-of-type(2n) > .row {
-    background-color: #d3d3d3;
-}*/
+.post-content {
+    word-wrap: break-word;
+}
 </style>
 
 
@@ -58,13 +58,8 @@
             % endif
 
         <div class="post-container">
-            <div class="row post-info">
-                <section class="large-6 columns post-header">
-                    <span class="post-date">${post.get("date")}</span>
-                    <div id="#post-${post.get('id')}"></div>
-                </section>
-                
-                <section class="large-6 columns post-options">
+            <div class="row post-info">                
+                <section style="background-color: #f5f5f5" class="large-12 columns post-options">
                 % if request.session.get("identity") is not None:
                     <a href="${slugs.get('topic')}/replying-to/${post.get('id')}" class="button tiny">Reply</a>
                     <a href="#" class="button tiny">Quote</a>
@@ -78,8 +73,11 @@
             
             <div class="row post-info">
                 <section class="large-2 columns post-user">
+                    <span class="post-date">${post.get("date")}</span>
+                    <div id="#post-${post.get('id')}"></div>
+                
                     <a class="poster-username" href="/user/${post.get('username')}">${post.get("username")}</a>
-                    <span class="poster-title">${post.get("user_title")}</span>
+                    <span class="poster-title">${post.get("title")}</span>
                     
                     <span class="poster-avatar">
                         % if post.get("avatar") is not None:
@@ -98,9 +96,7 @@
 
     
     <div class="row">
-        <div class="large-12 columns seperator">
-            
-        </div>
+        <hr>
     </div>
     % endfor
 </div>

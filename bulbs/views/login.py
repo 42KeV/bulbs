@@ -8,11 +8,8 @@ def response(request):
     if request.method == "POST":
         username = request.params.get("username")
         password = request.params.get("password")
-        authorized = checkpw(username, password)
-        
-        print ("AUTH:--------------$$", authorized)
-
-        if authorized:
+        matched = checkpw(username, password)
+        if matched:
             request.session["identity"] = whois(username)
             url = request.route_url("home")
             return HTTPFound(location=url)

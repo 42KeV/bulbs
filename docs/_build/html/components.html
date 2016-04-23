@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Components &mdash; Bulbs 0.2 documentation</title>
+    <title>components Package &mdash; Bulbs 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,10 +24,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Bulbs 0.2 documentation" href="index.html" />
-    <link rel="prev" title="Authentication" href="auth.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -37,189 +36,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="components">
-<h1>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-bulbs.components.auth">
-<span id="components-auth-module"></span><h2>components.auth module<a class="headerlink" href="#module-bulbs.components.auth" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="bulbs.components.auth.UserSession">
-<em class="property">class </em><code class="descclassname">bulbs.components.auth.</code><code class="descname">UserSession</code><span class="sig-paren">(</span><em>username=None</em>, <em>id=None</em>, <em>group_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.auth.UserSession" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="bulbs.components.auth.UserSession.is_admin">
-<code class="descname">is_admin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.auth.UserSession.is_admin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bulbs.components.auth.UserSession.is_banned">
-<code class="descname">is_banned</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.auth.UserSession.is_banned" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bulbs.components.auth.UserSession.is_mod">
-<code class="descname">is_mod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.auth.UserSession.is_mod" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.auth.authorize">
-<code class="descclassname">bulbs.components.auth.</code><code class="descname">authorize</code><span class="sig-paren">(</span><em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.auth.authorize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes plaintext arguments and returns a dictionary object with the keys <cite>success</cite> and <cite>session</cite>. 
-If the login arguments match that of the database, <cite>success</cite> will have a value of True and <cite>session</cite> will have <cite>UserSession</cite> class.</p>
-</dd></dl>
-
+  <div class="section" id="components-package">
+<h1><code class="xref py py-mod docutils literal"><span class="pre">components</span></code> Package<a class="headerlink" href="#components-package" title="Permalink to this headline">¶</a></h1>
 </div>
-<div class="section" id="module-bulbs.components.db">
-<span id="components-db-module"></span><h2>components.db module<a class="headerlink" href="#module-bulbs.components.db" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="bulbs.components.db.init">
-<code class="descclassname">bulbs.components.db.</code><code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.db.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the db connection and makes it available globally</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-bulbs.components.helpers">
-<span id="components-helpers-module"></span><h2>components.helpers module<a class="headerlink" href="#module-bulbs.components.helpers" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="bulbs.components.helpers.generate_slug">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">generate_slug</code><span class="sig-paren">(</span><em>cursor</em>, <em>name</em>, <em>id</em>, <em>table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.generate_slug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.is_root_post">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">is_root_post</code><span class="sig-paren">(</span><em>cursor</em>, <em>post_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.is_root_post" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if post is the first in a thread</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.last_post">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">last_post</code><span class="sig-paren">(</span><em>cursor</em>, <em>subcategory_id</em>, <em>parent_post=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.last_post" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the last post from a specific forum. If parent_post is not None, returns last post data from a thread</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.number_of_posts">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">number_of_posts</code><span class="sig-paren">(</span><em>cursor</em>, <em>forum_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.number_of_posts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of posts in a specific forum</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.number_of_replies">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">number_of_replies</code><span class="sig-paren">(</span><em>cursor</em>, <em>thread_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.number_of_replies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of replies in a specific thread</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.number_of_threads">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">number_of_threads</code><span class="sig-paren">(</span><em>cursor</em>, <em>forum_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.number_of_threads" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of threads in a specific forum</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.number_of_views">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">number_of_views</code><span class="sig-paren">(</span><em>cursor</em>, <em>thread_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.number_of_views" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of views in a specific thread</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.subcategory_moderators">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">subcategory_moderators</code><span class="sig-paren">(</span><em>cursor</em>, <em>subcategory_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.subcategory_moderators" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the moderators in a specific forum</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.subcategory_title_from_id">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">subcategory_title_from_id</code><span class="sig-paren">(</span><em>cursor</em>, <em>subcategory_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.subcategory_title_from_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the corresponding forum title from id</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.thread_pages">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">thread_pages</code><span class="sig-paren">(</span><em>cursor</em>, <em>thread_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.thread_pages" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the amount of threads that should be displayed per forum page</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.helpers.username_from_id">
-<code class="descclassname">bulbs.components.helpers.</code><code class="descname">username_from_id</code><span class="sig-paren">(</span><em>cursor</em>, <em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.helpers.username_from_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the corresponding username from the id</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-bulbs.components.security">
-<span id="components-security-module"></span><h2>components.security module<a class="headerlink" href="#module-bulbs.components.security" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="bulbs.components.security.generate_password">
-<code class="descclassname">bulbs.components.security.</code><code class="descname">generate_password</code><span class="sig-paren">(</span><em>pt_password</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.security.generate_password" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a hashed bytes object using bcrypt&#8217;s hashpw function</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-bulbs.components.topic">
-<span id="components-topic-module"></span><h2>components.topic module<a class="headerlink" href="#module-bulbs.components.topic" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="bulbs.components.topic.PostParser">
-<em class="property">class </em><code class="descclassname">bulbs.components.topic.</code><code class="descname">PostParser</code><a class="headerlink" href="#bulbs.components.topic.PostParser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">html.parser.HTMLParser</span></code></p>
-<dl class="method">
-<dt id="bulbs.components.topic.PostParser.handle_data">
-<code class="descname">handle_data</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.PostParser.handle_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bulbs.components.topic.PostParser.handle_endtag">
-<code class="descname">handle_endtag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.PostParser.handle_endtag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bulbs.components.topic.PostParser.handle_starttag">
-<code class="descname">handle_starttag</code><span class="sig-paren">(</span><em>tag</em>, <em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.PostParser.handle_starttag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bulbs.components.topic.PostParser.parsed_content">
-<code class="descname">parsed_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.PostParser.parsed_content" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bulbs.components.topic.PostParser.script_content">
-<code class="descname">script_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.PostParser.script_content" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.topic.append_id_to_slug">
-<code class="descclassname">bulbs.components.topic.</code><code class="descname">append_id_to_slug</code><span class="sig-paren">(</span><em>slug</em>, <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.append_id_to_slug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.topic.create_topic">
-<code class="descclassname">bulbs.components.topic.</code><code class="descname">create_topic</code><span class="sig-paren">(</span><em>subject</em>, <em>content</em>, <em>subcategory_id</em>, <em>ip</em>, <em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.create_topic" title="Permalink to this definition">¶</a></dt>
-<dd><p>this function creates threads
-passed keywords:</p>
-<blockquote>
-<div>forum_id,
-post_subject,
-post_message,
-author_ip</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.topic.format_post">
-<code class="descclassname">bulbs.components.topic.</code><code class="descname">format_post</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.format_post" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="bulbs.components.topic.reply_to_topic">
-<code class="descclassname">bulbs.components.topic.</code><code class="descname">reply_to_topic</code><span class="sig-paren">(</span><em>subject</em>, <em>content</em>, <em>topic_id</em>, <em>ip</em>, <em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#bulbs.components.topic.reply_to_topic" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function gets callled when a user writes a reply to a thread,
-it takes 5 arguments and inserts them into the database,
-i pass the db connection so i can &#8216;commit&#8217; the changes</p>
-</dd></dl>
-
-</div>
+<div class="section" id="auth-module">
+<h1><code class="xref py py-mod docutils literal"><span class="pre">auth</span></code> Module<a class="headerlink" href="#auth-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -230,20 +51,13 @@ i pass the db connection so i can &#8216;commit&#8217; the changes</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Components</a><ul>
-<li><a class="reference internal" href="#module-bulbs.components.auth">components.auth module</a></li>
-<li><a class="reference internal" href="#module-bulbs.components.db">components.db module</a></li>
-<li><a class="reference internal" href="#module-bulbs.components.helpers">components.helpers module</a></li>
-<li><a class="reference internal" href="#module-bulbs.components.security">components.security module</a></li>
-<li><a class="reference internal" href="#module-bulbs.components.topic">components.topic module</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">components</span></code> Package</a></li>
+<li><a class="reference internal" href="#auth-module"><code class="docutils literal"><span class="pre">auth</span></code> Module</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="auth.html" title="previous chapter">Authentication</a></li>
   </ul></li>
 </ul>
 </div>
@@ -262,9 +76,6 @@ i pass the db connection so i can &#8216;commit&#8217; the changes</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -272,11 +83,11 @@ i pass the db connection so i can &#8216;commit&#8217; the changes</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2015, John Murphy.
+      &copy;2016, John Murphy.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/components.txt"

@@ -1,26 +1,30 @@
 from pyramid.httpexceptions import HTTPFound
+from pyramid.response import Response
 from pyramid.view import view_config
-from bulbs.components import db
 from bulbs.components.security import generate_password
+from bulbs.components import db
 
 
 def username_taken(username):
+    """Check if a username exists in the database then return a boolean."""
     cursor = db.con.cursor()
     cursor.execute(
-        "SELECT id FROM bulbs_user WHERE lower(username) = %s", (username.lower(), ))
-    data = cursor.fetchone()
-    if data is None:
-        return False
+        "SELECT id FROM bulbs_user WHERE lower(username) = %s", 
+         (username.lower(), ))
+    try:
+        data = cursor.fetchone()[0]
+    except IndexError:
+        return False    # Username doesn't exist.
     return True
     
 def register_user(username, password, email, ip):
+    """Insert a user into the database."""
     cursor = db.con.cursor()
     hashed_password = generate_password(password)
     cursor.execute(
         "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title, group_id) \
          VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
-            (username, hashed_password, email, ip, 0, "Newbie", 1)
-    )
+         (username, hashed_password, email, ip, 0, "Newbie", 1))
     db.con.commit()
     return True
     
@@ -33,7 +37,7 @@ def response(request):
         email = request.params.get("email")
 
         if username_taken(username):
-            return Response("Username already exists. Please choose a different one.")
+            return Response("That username already exists. Please choose a different one.")
         if password == password_again:
             register_user(username, password, email, request.client_addr)
             url = request.route_url("login")

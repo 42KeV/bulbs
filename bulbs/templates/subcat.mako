@@ -2,13 +2,6 @@
 
 <br>
 
-
-<style>
-
-</style>
-
-
-
 <div class="container">
     <div class="row">
         <ul class="left breadcrumbs">
@@ -18,8 +11,8 @@
 
         % if request.session.get("identity") is not None:
             <div class="right">
-                <a href="${slugs.get('subcat')}/posting-new" class="button small">Post topic</a>
-                <a href="#" class="button small">Post poll</a>
+                <a href="${slugs.get('subcat')}/posting-new" class="button tiny">Post topic</a>
+                <a href="#" class="button tiny">Post poll</a>
             </div>
         % endif
     </div>

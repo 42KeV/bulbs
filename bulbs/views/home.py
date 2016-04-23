@@ -1,63 +1,55 @@
-from bulbs.components import db
-from bulbs.components import helpers
 from pyramid.view import view_config
+from bulbs.components import helpers
+from bulbs.components import db
 
 
-def categories(cursor):
+def catinfo(cat):
+    keys = "id", "title", "desc", "slug"
+    keys_values = zip(keys, cat)
+    return dict(keys_values)
+
+def categories():
+    """Return a dict containing all categories."""
+    cursor = db.con.cursor()
     cursor.execute("SELECT id, title, description, slug FROM bulbs_category")
-    cats = cursor.fetchall()
-    
-    def catinfo(cat):
-        keys = "id", "title", "desc", "slug"
-        keys_values = zip(keys, cat)
-        
-        return dict(keys_values)
-        
+    cats = cursor.fetchall()        
     data = map(catinfo, cats)
-
     return data
 
-def subcategories(cursor, category_id=None):
-    if category_id is not None:
+def subcatinfo(data):
+    keys = "id", "title", "category_id", "desc", "slug"
+    keys_values = zip(keys, data)
+    id = data[0]
+    return dict(keys_values,
+        id=id,
+        threads=helpers.number_of_threads(id),
+        posts=helpers.number_of_posts(id),
+        last_post=helpers.last_post(id)
+    )
+
+def subcategories(cat_id=None):
+    """Return a dict containing information from a specified category or forums for every category."""
+    cursor = db.con.cursor()
+    if cat_id is not None:
         cursor.execute(
             "SELECT id, title, category_id, description, slug FROM bulbs_subcategory \
-            WHERE category_id = %s", (category_id, )
-        )
+             WHERE category_id = %s", (cat_id, ))
     else:
         cursor.execute(
-            "SELECT id, title, category_id, description, slug FROM bulbs_subcategory"
-        )
-            
-    children = cursor.fetchall()
-    
-    def foruminfo(data):
-        keys = "id", "title", "category_id", "desc", "slug"
-        keys_values = zip(keys, data)
-
-        id = data[0]
-        
-        return dict(keys_values,
-            id=id,
-            threads=helpers.number_of_threads(id),
-            posts=helpers.number_of_posts(id),
-            last_post=helpers.last_post(id)
-        )
-        
-    subcategories_ = map(foruminfo, children)
-
+            "SELECT id, title, category_id, description, slug FROM bulbs_subcategory")
+    children = cursor.fetchall()        
+    subcategories_ = map(subcatinfo, children)
     return subcategories_
 
 @view_config(route_name="home", renderer="home.mako")
 def response(request):
     cursor = db.con.cursor()
-    cat_data = categories(cursor)
-    subcat_data = list(subcategories(cursor))
-
-    print ("AUTH: ", request.session.get("auth"))
-
+    cats = categories()
+    subcats = list(subcategories())
+    
     return {
         "project": request.registry.settings.get("site_name"),
         "title": "Home",
-        "categories": cat_data,
-        "subcategories": subcat_data
+        "categories": cats,
+        "subcategories": subcats
     }

@@ -1,5 +1,7 @@
 <%inherit file="base.mako"/>
 
+<br>
+
 <form method="POST">
     <div class="row">
         <div class="large-6 columns">
@@ -23,9 +25,13 @@
         </div>
 
         <div class="large-4 columns">
+            <label>Email
+                <input type="text" name="avatar"/>
+            </label>
+            <!--
             <label>Avatar
                 <input type="file" name="avatar"/>
-            </label>
+            </label>-->
         </div>
         
         <div class="large-4 columns">

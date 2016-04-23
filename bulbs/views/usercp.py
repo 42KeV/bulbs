@@ -12,9 +12,6 @@ def response(request):
     
     if request.method == "POST":
         username = ident.get("username")
-        
-        print ("USE$RNAME ISSSSSSSSSSS", username)
-        
         real_name = request.params.get("name")
         city = request.params.get("city")
         state = request.params.get("state")
@@ -29,7 +26,7 @@ def response(request):
             new_password1 = request.params.get("new_password1")
             new_password2 = request.params.get("new_password1")
             
-            if not new_password1 == new_password2: # user typed the same password correctly
+            if new_password1 != new_password2: # user typed the same password correctly
                 return Response("Invalid current password!")
                 
         if real_name:
@@ -41,7 +38,6 @@ def response(request):
         if email:
             cursor.execute("UPDATE bulbs_user SET email = %s WHERE username = %s", (email, username))
         if bio:
-            print ("updating bio .................")
             cursor.execute("UPDATE bulbs_user SET biography = %s WHERE username = %s", (bio, username))
         if avatar:
             cursor.execute("UPDATE bulbs_user SET avatar = %s WHERE username = %s", (avatar, username))
