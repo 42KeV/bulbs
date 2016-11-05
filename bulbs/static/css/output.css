@@ -1,0 +1,101 @@
+body {
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  background-color: #fff; }
+
+.row {
+  max-width: 90%; }
+
+.normal-row {
+  margin: 0 auto;
+  max-width: 62.5rem;
+  width: 100%; }
+
+.top-bar {
+  background-color: #42586e; }
+
+.top-nav-button a:hover {
+  background-color: #2A2A2A; }
+
+.top-bar-section li:not(.has-form) a:hover:not(.button) {
+  background-color: #263340; }
+
+.top-bar-section li.active:not(.has-form) a:hover:not(.button) {
+  background-color: #8099B3; }
+
+.top-bar-section li:not(.has-form) a:not(.button) {
+  background-color: #42586e;
+  transition: background 500ms ease; }
+
+.top-bar-section li.active:not(.has-form) a:not(.button) {
+  background-color: #8099B3;
+  transition: background 500ms ease; }
+
+/* REFACTOR */
+.seperator {
+  height: 1em; }
+
+/* ==================== */
+#site-info {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#67426e+0,42586e+100 */
+  background: #67426e;
+  /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #67426e 0%, #42586e 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #67426e 0%, #42586e 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #67426e 0%, #42586e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#67426e', endColorstr='#42586e',GradientType=1 );
+  /* IE6-9 fallback on horizontal gradient */ }
+
+.row-container {
+  padding: 20px;
+  color: #333;
+  transition: background 500ms ease;
+  cursor: pointer; }
+
+.row-container:hover {
+  background-color: #F5F5F5; }
+
+.row-header-container {
+  background-color: #42586e;
+  padding: 5px 0 5px 0;
+  color: #fff; }
+
+.subcat-stats {
+  display: block; }
+
+h4 {
+  color: #8374AE; }
+
+.subcat-stats > span {
+  display: block; }
+
+.post-options {
+  padding: 0; }
+
+.post-options > .button {
+  float: right;
+  margin-bottom: 0; }
+
+.post-user > span {
+  display: block; }
+
+.post-title {
+  font-weight: bold;
+  color: #fff; }
+
+.poster-avatar {
+  height: 120px;
+  width: 120px; }
+
+/* ===== Homepage styles ===== */
+.subcat-title {
+  margin: 0;
+  padding: 0; }
+
+.subcat-column:hover {
+  color: #555; }
+
+/*# sourceMappingURL=output.css.map */

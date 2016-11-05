@@ -3,7 +3,7 @@
     <head>
         <title>${project} - ${title}</title>
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/foundation.min.css')}">
-        <link rel="stylesheet" href="${request.static_url('bulbs:static/css/custom.css')}">
+        <link rel="stylesheet" href="${request.static_url('bulbs:static/css/output.css')}">
         <link rel="stylesheet" href="${request.static_url('bulbs:static/css/normalize.css')}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
@@ -17,6 +17,16 @@
             else:
                 is_logged_in = False
         %>
+        
+<style>
+/*.foundation-row {
+    max-width: 63.5rem;
+}
+.row {
+    max-width: 90rem;
+}*/
+</style>
+        
     </head>
     
     <body>

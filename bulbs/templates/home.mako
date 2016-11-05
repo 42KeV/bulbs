@@ -12,7 +12,7 @@
 <br>
 
 <div class="container">
-    <div class="row">
+    <div class="row wide-row">
         <div class="large-6 columns">
             % if is_logged_in:
                 <p>Logged in as ${ident.get("username")}</p>
@@ -29,7 +29,7 @@
     </div>
 
     % for category in categories:
-        <div class="row row-header-container">
+        <div class="row wide-row row-header-container">
             <div class="large-12 text-center columns">
                 <span class="cat-name">${category.get("title")}</span>
             </div>
@@ -39,7 +39,7 @@
             % if subcategory.get("category_id") == category.get("id"):
                 <% last_post = subcategory.get("last_post", None) %>
                 
-                <div class="row row-container" data-cat="${category.get('slug')}" data-subcat="${subcategory.get('slug')}">
+                <div class="row wide-row row-container" data-cat="${category.get('slug')}" data-subcat="${subcategory.get('slug')}">
                     <div class="large-7 columns subcat-column">
                         <a href="#"><h4 class="subcat-title">${subcategory.get("title")}</h4></a>
                         <span class="subcat-desc">${subcategory.get("desc")}</span>
