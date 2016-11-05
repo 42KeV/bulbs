@@ -21,7 +21,7 @@
     
     <div class="row">
         <div class="large-2 columns right">
-            <button type="submit" class="button">Submit</button>
+            <button type="submit right" class="button">Submit</button>
         </div>
     </div>
 </form>
