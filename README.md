@@ -8,10 +8,13 @@ Bulbs is an open source message board developed in Python using the Pyramid Web 
 * PostgreSQL
 
 ## How to install
+
+* `pip install -r requirements.txt` - Install Bulbs' dependencies.
+
 * Clone the repository, `git clone https://github.com/mystogan2000/bulbs.git`
 
 `python setup.py develop` to install the package and dependencies
-`pthon setup.py configure` to configure database
+`pthon setup.py dbadmin` to configure database
 
 If nothing exploded, you should be ready to rock and roll
 

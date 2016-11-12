@@ -1,5 +1,7 @@
 <%inherit file="base.mako"/>
 
+<br>
+
 <form method="POST">
     <div class="row">
         <div class="large-12 columns">
@@ -21,7 +23,7 @@
     
     <div class="row">
         <div class="large-2 columns right">
-            <button type="submit right" class="button">Submit</button>
+            <button type="submit" class="button right">Submit</button>
         </div>
     </div>
 </form>

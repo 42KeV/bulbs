@@ -36,34 +36,34 @@
             </div>
         </div>
         <nav class="top-bar" data-topbar role="navigation">
-            <ul class="title-area">
-                <li class="name">
-                    <h1><a href="/"><i class="fa fa-lightbulb-o"></i></a></h1>
-                </li>
-                
-                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-            </ul>
 
             <section class="top-bar-section">
                 <!-- Right Nav Section -->
+                <ul class="left">
+                    <li class="top-nav-button" id="nav-home"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                </ul>
                 
                 % if is_logged_in:
                     <ul class="left">
+                        <li class="top-nav-button" id="nav-user-cp">
+                            <a href="/control-panel">
+                                <i class="fa fa-cog" aria-hidden="true"></i> User CP</a>
+                        </li>
                         % if ident.get("group_id") == 3:
-                            <li id="nav-admin"><a href="/admin">Admin CP</a></li>
+                            <li id="nav-admin-cp">
+                                <a href="/admin">
+                                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin CP</a>
+                            </li>
                         % endif
                     </ul>
                 % endif
                 
                 <ul class="right">
-                    <li class="top-nav-button" id="nav-home"><a href="/">Home</a></li>
-
                     % if is_logged_in:
-                            <li class="top-nav-button" id="nav-user-cp"><a href="/control-panel">User CP</a></li>
                             <li class="top-nav-button" id="nav-inbox"><a href="/inbox">Inbox</a></li>
                             <li class="top-nav-button" id="nav-sign-out"><a href="/logout">Sign out</a></li>
                         % else:
+                            <li class="top-nav-button" id-nav-sign-up"><a href="/register">Register</a></li>
                             <li class="top-nav-button" id="nav-sign-in"><a href="/login">Sign in</a></li>
                     % endif
                     <!--
@@ -76,12 +76,6 @@
                         </ul>
                     </li>-->
                 </ul>
-
-                <!-- Left Nav Section
-                <ul class="left">
-                    <li><a href="#">Left Nav Button</a></li>
-                </ul>
-                -->
                 
             </section>
         </nav>

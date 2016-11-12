@@ -22,7 +22,6 @@ requires = [
     'pyramid_beaker',
     'psycopg2',
     'bcrypt',
-    'unicode-slugify'
     ]
 
 def write_sql_config(dbname, dbuser, dbpass, dbport):
@@ -73,7 +72,7 @@ def db_setup(dbname, dbuser, dbpass, dbport):
     
     return True
 
-def admin_setup(con):
+def admin_setup():
     db.init()
     username = input("Username: ")
     while 1:
@@ -104,7 +103,7 @@ def bulbs_setup():
     
 if sys.argv[1] == "db":
     bulbs_setup()
-elif sys.arv[1] == "dbadmin":
+elif sys.argv[1] == "dbadmin":
     bulbs_setup()
     admin_setup()
 elif sys.argv[1] == "admin":

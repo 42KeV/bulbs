@@ -23,7 +23,7 @@
         <div class="row">
             <div class="large-6 large-centered columns">
                 <label>Password again
-                    <input type="text" name="password2"/>
+                    <input type="password" name="password2"/>
                 </label>
             </div>            
         </div>

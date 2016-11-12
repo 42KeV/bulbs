@@ -6,14 +6,14 @@ from bulbs.components import db
 
 
 def username_taken(username):
-    """Check if a username exists in the database then return a boolean."""
+    """Check if the username already exists in the database and return a boolean."""
     cursor = db.con.cursor()
     cursor.execute(
         "SELECT id FROM bulbs_user WHERE lower(username) = %s", 
          (username.lower(), ))
     try:
         data = cursor.fetchone()[0]
-    except IndexError:
+    except TypeError:
         return False    # Username doesn't exist.
     return True
     
