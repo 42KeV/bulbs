@@ -46,13 +46,9 @@ def append_id_to_slug(slug, id):
     return id_slug
     
 def reply_to_topic(subject, content, topic_id, ip, username):
-    ''' This function gets callled when a user writes a reply to a thread,
-        it takes 5 arguments and inserts them into the database,
-        i pass the db connection so i can 'commit' the changes
-    '''
+    """Creates a reply in the specified topic."""
     
     formatted_post = format_post(content)
-    
     cursor = db.con.cursor()
 
     cursor.execute("SELECT subcategory_id FROM bulbs_post WHERE id = %s", (topic_id, ))
@@ -65,7 +61,15 @@ def reply_to_topic(subject, content, topic_id, ip, username):
 
     cursor.execute("\
         INSERT INTO bulbs_Post (subcategory_id, parent_post, title, content, date, user_id, ip, slug) VALUES \
-        (%s, %s, %s, %s, now(), %s, %s, %s)", (subcat_id, topic_id, subject, formatted_post, user_id, ip, post_slug))
+        (%s, %s, %s, %s, now(), %s, %s, %s)", (
+            subcat_id, 
+            topic_id, 
+            subject, 
+            formatted_post, 
+            user_id,
+            ip, 
+            post_slug
+        ))
 
     cursor.execute("UPDATE bulbs_Post SET latest_reply = now() WHERE id = %s", (topic_id, ))
     db.con.commit()
@@ -73,13 +77,8 @@ def reply_to_topic(subject, content, topic_id, ip, username):
     return True
     
 def create_topic(subject, content, subcategory_id, ip, username):
-    ''' this function creates threads
-        passed keywords:
-            forum_id,
-            post_subject,
-            post_message,
-            author_ip
-    '''
+    """Creates a thread in the specified subcategory."""
+
     cursor = db.con.cursor()
     formatted_post = format_post(content)
 

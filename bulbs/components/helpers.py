@@ -5,6 +5,8 @@ from slugify import slugify
 
 
 def generate_slug(data, id, table):
+    """Return a slug."""
+    
     slug = slugify(data)
     cursor = db.con.cursor()
     cursor.execute(
@@ -17,7 +19,7 @@ def generate_slug(data, id, table):
     return "{0}-{1}".format(slug, id)
 
 def username_from_id(user_id):
-    ''' Returns the username corresponding to the user id '''
+    """Return the username corresponding to the user id."""
 
     try:
         cursor = db.con.cursor()
@@ -30,7 +32,7 @@ def username_from_id(user_id):
     return username
     
 def number_of_threads(forum_id):
-    ''' Returns the number of threads in a specific forum '''
+    """Return the number of threads in a subcategory."""
 
     try:
         cursor = db.con.cursor()
@@ -44,7 +46,8 @@ def number_of_threads(forum_id):
     return views
     
 def number_of_posts(forum_id):
-    ''' Returns the number of posts in a specific forum '''
+    """Return the number of posts in a subcategory."""
+
     try:
         cursor = db.con.cursor()
         cursor.execute(
@@ -57,7 +60,7 @@ def number_of_posts(forum_id):
     return posts
     
 def number_of_views(thread_id):
-    ''' Returns the number of views in a specific thread '''
+    """Return the number of views in a thread."""
 
     try:
         cursor = db.con.cursor()
@@ -70,7 +73,7 @@ def number_of_views(thread_id):
     return views
     
 def number_of_replies(thread_id):
-    ''' Returns the number of replies in a specific thread '''
+    """Return the number of replies in a thread."""
 
     try:
         cursor = db.con.cursor()
@@ -84,7 +87,7 @@ def number_of_replies(thread_id):
     return replies
     
 def subcat_title_from_id(subcategory_id):
-    ''' Returns the title corresponding to the subcategory id '''
+    """Return the title corresponding to the subcategory id."""
 
     try:
         cursor = db.con.cursor()
@@ -97,7 +100,7 @@ def subcat_title_from_id(subcategory_id):
     return title
     
 def subcat_moderators(subcategory_id):
-    ''' Returns a list of moderators in a specific forum '''
+    """Return a list of moderators for the specified forum."""
 
     try:
         cursor = db.con.cursor()
@@ -111,7 +114,7 @@ def subcat_moderators(subcategory_id):
     return list(mods)
     
 def last_post(subcategory_id, parent_post=None):
-    '''Returns the last post from a specific forum. If parent_post is not None, returns last post data from a thread'''
+    """Return the last post from a forum. If parent_post is not None, return last post data from a thread."""
     #parent_post is set to None by default, if parent post is provided then we'll return the last post data for a thread
     
     cursor = db.con.cursor()
@@ -167,8 +170,8 @@ def last_post(subcategory_id, parent_post=None):
     return last_post
     
 def is_root_post(post_id):
-    ''' Returns True if the post_id doesn't have a parent (is first post in a topic) '''
-
+    """Return True if the post_id doesn't have a parent (This means this is the first post in a topic)."""
+    
     try:
         cursor = db.con.cursor()
         cursor.execute("SELECT parent_post FROM bulbs_Post WHERE id = %s", (post_id, ))
@@ -180,10 +183,11 @@ def is_root_post(post_id):
     return True
     
 def thread_pages(thread_id):
-    ''' Returns the amount of pages a thread should have '''
+    """Return the amount of pages a thread has."""
+    
     registry = threadlocal.get_current_registry()
     limit = int(registry.settings.get("posts_per_page"))
-
+    
     cursor = db.con.cursor()
     cursor.execute(
         "SELECT count(*) FROM bulbs_Post WHERE id = %s OR parent_post = %s",

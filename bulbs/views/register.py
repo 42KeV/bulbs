@@ -7,6 +7,7 @@ from bulbs.components import db
 
 def username_taken(username):
     """Check if the username already exists in the database and return a boolean."""
+    
     cursor = db.con.cursor()
     cursor.execute(
         "SELECT id FROM bulbs_user WHERE lower(username) = %s", 
@@ -15,10 +16,12 @@ def username_taken(username):
         data = cursor.fetchone()[0]
     except TypeError:
         return False    # Username doesn't exist.
+        
     return True
     
 def register_user(username, password, email, ip):
     """Insert a user into the database."""
+    
     cursor = db.con.cursor()
     hashed_password = generate_password(password)
     cursor.execute(
@@ -26,6 +29,7 @@ def register_user(username, password, email, ip):
          VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
          (username, hashed_password, email, ip, 0, "Newbie", 1))
     db.con.commit()
+    
     return True
     
 @view_config(route_name="register", renderer="register.mako")
