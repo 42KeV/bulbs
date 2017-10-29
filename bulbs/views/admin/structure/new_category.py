@@ -5,6 +5,7 @@ from bulbs.components.helpers import generate_slug
 
 def future_category_id(cursor):
     cursor.execute("SELECT last_value FROM bulbs_category_id_seq")
+    #sqlite3cursor.execute("SELECT last_insert_rowid()")
     future_id = cursor.fetchone()[0] + 1
 
     return future_id

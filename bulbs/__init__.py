@@ -33,6 +33,9 @@ def main(global_config, **settings):
     config.include('pyramid_mako')
     config.include('pyramid_beaker')
     config.add_static_view('static', 'static', cache_max_age=3600)
+    
+    config.add_route('install', '/install')
+    
     config.add_route('home', '/')
     config.add_route('register', '/register')
     config.add_route('login', '/login')
@@ -63,7 +66,22 @@ def main(global_config, **settings):
 
     #config.add_view('unauthorized', renderer='errors/unauthorized.mako')
     
-    db.init()
+    
+    
+    
+    
+    
+    # find db type and init it
+    # since we're testing sqlite3 functionality, just assume its sqlite3
+    
+    db.init_postgresql()
+    
+    
+    
+    
+    
+    
+    #db.init()
     config.scan()
     app = config.make_wsgi_app()
     

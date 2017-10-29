@@ -1,4 +1,32 @@
 
+allow setup of bulbs without psycopg2 module
+
+setup via webpage OR command line
+
+COMMON ERRORS:
+
+ERROR:
+Error: pg_config executable not found.
+
+SOLUTION:
+install postgresql prior to installing psycopg2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 create and manage sessions. when sessions expire, add a value to the users account with the date and time that it expired.
 then when the user renews the session, new posts can be fetched
 

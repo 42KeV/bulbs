@@ -19,12 +19,16 @@ bulbs/components/__init__.py
 bulbs/components/auth.py
 bulbs/components/db.py
 bulbs/components/helpers.py
-bulbs/components/security.py
+bulbs/components/post.py
+bulbs/components/reply.py
+bulbs/components/subcategory.py
 bulbs/components/topic.py
+bulbs/components/user.py
 bulbs/static/css/custom.css
 bulbs/static/css/foundation.css
 bulbs/static/css/foundation.min.css
 bulbs/static/css/normalize.css
+bulbs/static/css/output.css
 bulbs/static/js/custom.js
 bulbs/static/js/foundation.min.js
 bulbs/static/js/foundation/foundation.abide.js
@@ -289,6 +293,7 @@ bulbs/static/js/three.js/textures/cube/skybox/nz.jpg
 bulbs/static/js/three.js/textures/cube/skybox/px.jpg
 bulbs/static/js/three.js/textures/cube/skybox/py.jpg
 bulbs/static/js/three.js/textures/cube/skybox/pz.jpg
+bulbs/static/js/three.js/textures/decal/LICENSE.TXT
 bulbs/static/js/three.js/textures/decal/decal-diffuse.png
 bulbs/static/js/three.js/textures/decal/decal-normal.jpg
 bulbs/static/js/three.js/textures/lava/cloud.png
@@ -405,6 +410,7 @@ bulbs/static/terminal/js/jquery.terminal-src.js
 bulbs/templates/base.mako
 bulbs/templates/error.mako
 bulbs/templates/home.mako
+bulbs/templates/install.mako
 bulbs/templates/login.mako
 bulbs/templates/logout.mako
 bulbs/templates/new-reply.mako
@@ -440,6 +446,7 @@ bulbs/templates/default/view-topic.mako
 bulbs/templates/errors/unauthorized.mako
 bulbs/views/__init__.py
 bulbs/views/home.py
+bulbs/views/install.py
 bulbs/views/login.py
 bulbs/views/logout.py
 bulbs/views/post_edit.py

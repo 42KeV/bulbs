@@ -3,6 +3,5 @@ pyramid_mako
 pyramid_debugtoolbar
 waitress
 pyramid_beaker
-psycopg2
 bcrypt
-unicode-slugify
+psycopg2

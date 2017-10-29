@@ -5,9 +5,12 @@ from bulbs.components.helpers import generate_slug
 
 def destined_subcat_id():
     cursor = db.con.cursor()
+    #sqlite3cursor.execute("SELECT rowid FROM bulbs_subcategory")
     cursor.execute("SELECT last_value FROM bulbs_subcategory_id_seq")
-    future_id = cursor.fetchone()[0] + 1
-
+    try:
+        future_id = cursor.fetchone()[0] + 1
+    except TypeError:
+        future_id = 1
     return future_id
 
 def catinfo(data):

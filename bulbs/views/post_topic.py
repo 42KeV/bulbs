@@ -1,12 +1,13 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
+
 from bulbs.components import db
 from bulbs.components.topic import create_topic
 
 @view_config(route_name='new-topic', renderer='new-topic.mako')
 def response(request):
-    ''' User gets this view when he goes to create a new topic '''
+    """User gets this view when he goes to create a new topic."""
     category_slug = request.matchdict["cat_slug"]
     subcategory_slug = request.matchdict["subcat_slug"]
 

@@ -1,5 +1,5 @@
 from pyramid.view import view_config
-from bulbs.components import helpers
+from bulbs.components.subcategory import number_of_threads, number_of_posts, last_post
 from bulbs.components import db
 
 
@@ -22,9 +22,9 @@ def subcatinfo(data):
     id = data[0]
     return dict(keys_values,
         id=id,
-        threads=helpers.number_of_threads(id),
-        posts=helpers.number_of_posts(id),
-        last_post=helpers.last_post(id)
+        threads=number_of_threads(id),
+        posts=number_of_posts(id),
+        last_post=last_post(id)
     )
 
 def subcategories(cat_id=None):

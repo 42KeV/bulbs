@@ -1,7 +1,7 @@
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from bulbs.components import db
-from bulbs.components.topic import reply_to_topic
+from bulbs.components.reply import reply_to_topic
 
 @view_config(route_name='new-reply', renderer='new-reply.mako')
 def response(request):

@@ -1,9 +1,12 @@
 from pyramid import threadlocal
 from pyramid.view import view_config
 from pyramid.response import Response
+
 from bulbs.components import helpers
 from bulbs.components import db
 
+from bulbs.components.subcategory import subcat_title_from_id
+from bulbs.components.topic import thread_pages
 
 def userinfo(userid):
     """Return a dict containing profile information corresponding to the user id specified."""
@@ -66,7 +69,7 @@ def response(request):
     content = list(map(postinfo, data))
     
     subcat_id = content[0]["subcat_id"]
-    subcat_title = helpers.subcat_title_from_id(subcat_id)  
+    subcat_title = subcat_title_from_id(subcat_id)  
     
     cursor.execute("SELECT title from bulbs_Post WHERE id = %s", (topic_id, ))
     topic_title = cursor.fetchone()[0]
@@ -81,5 +84,5 @@ def response(request):
         "topic_id": topic_id,
         "subcat_name": subcat_title,
         "posts": content,
-        "pages": helpers.thread_pages(topic_id)
+        "pages": thread_pages(topic_id)
     }

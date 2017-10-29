@@ -3,9 +3,19 @@ from bulbs.components import db
 import bcrypt
 
 
+def generate_password(pt_password):
+    """Return a hashed byte object using bcrypt's hashpw function."""
+    twelve = 12
+    salt = bcrypt.gensalt(twelve);
+    pt_password = bytes(pt_password, encoding="utf-8")
+    hashedpw = bcrypt.hashpw(pt_password, salt)
+    
+    return hashedpw
+
 def checkpw(username, password):
     """Check if the username and password combination match what's in the database."""
     cursor = db.con.cursor()
+    
     try:
         cursor.execute(
             "SELECT password FROM bulbs_user WHERE lower(username) = %s",
@@ -13,16 +23,18 @@ def checkpw(username, password):
         dbpassword = cursor.fetchone()[0].tobytes()
     except (IndexError, TypeError):
         return False    # Username doesn't exist.
+        
     try:
         hashedpw = bcrypt.hashpw(bytes(password, encoding="utf-8"), dbpassword)
         if not hashedpw == dbpassword: 
             return False
     except ValueError: 
         return False
+        
     return True
 
 def whois(username):
-    """Return some profile data for the username."""
+    """Return profile data for the user."""
     cursor = db.con.cursor()
     try:
         cursor.execute(
@@ -32,7 +44,9 @@ def whois(username):
         userinfo = dict(id=data[0], username=data[1], group_id=data[2])
     except TypeError:
         return None    # Username doesn't exist.
+        
     return userinfo
+    
 
 #def authorize(username, password):
 #    '''
