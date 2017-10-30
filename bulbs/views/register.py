@@ -53,6 +53,8 @@ def response(request):
             register_user(1, username, password, email, request.client_addr)
             url = request.route_url("login")
             return HTTPFound(location=url)
+        if password != password_again:
+            return Response("Passwords do not match.")
         else:
             url = request.route_url("error")
             return HTTPFound(location=url)

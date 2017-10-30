@@ -17,10 +17,15 @@ def register_user(group_id, username, password, email, ip):
     """Insert a user into the database."""
     cursor = db.con.cursor()
     hashed_password = generate_password(password)
-    cursor.execute(
-        "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title, group_id) \
-         VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
-         (username, hashed_password, email, ip, 0, "Newbie", group_id))
+    try:
+        cursor.execute(
+            "INSERT INTO bulbs_user (username, password, email, ip, date, karma, title, group_id) \
+             VALUES (%s, %s, %s, %s, now(), %s, %s, %s)",
+             (username, hashed_password, email, ip, 0, "Newbie", group_id))
+    except psycopg2.DataError as e:
+        cursor.execute("rollback")
+        return False
+        
     db.con.commit()
     
     return True

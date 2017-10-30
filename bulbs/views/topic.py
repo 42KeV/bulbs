@@ -1,12 +1,11 @@
 from pyramid import threadlocal
 from pyramid.view import view_config
 from pyramid.response import Response
-
-from bulbs.components import helpers
 from bulbs.components import db
-
+from bulbs.components import helpers
 from bulbs.components.subcategory import subcat_title_from_id
 from bulbs.components.topic import thread_pages
+
 
 def userinfo(userid):
     """Return a dict containing profile information corresponding to the user id specified."""

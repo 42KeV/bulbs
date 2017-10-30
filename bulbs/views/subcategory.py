@@ -1,6 +1,5 @@
 from pyramid.view import view_config
 from pyramid.response import Response
-
 from bulbs.components import db
 from bulbs.components.subcategory import subcat_title_from_id, last_post, subcat_moderators
 from bulbs.components.topic import number_of_replies, number_of_views

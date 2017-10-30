@@ -19,6 +19,7 @@
             % else:
                 <p>Welcome, are you new here? <a href="/register">Click here</a> to sign up</a></p>
             % endif
+            <p>Give a warm welcome to our newest member <a href="user/${new_member}">${new_member}</a>!</p>
         </div>
         
         <div class="large-6 columns text-right">
@@ -62,7 +63,7 @@
                 </div>
             % endif
         % endfor
-    % endfor
+    % endfor    
 </div>
 
 

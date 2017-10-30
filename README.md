@@ -1,3 +1,7 @@
+1. redirect guests to homepage after successful registering
+2. fix url generation, delete special characters instead of replacing them with a space
+
+
 ## What is Bulbs?
 Bulbs is an open source message board developed in Python using the Pyramid Web Framework. 
 

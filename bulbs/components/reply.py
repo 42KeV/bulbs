@@ -1,4 +1,5 @@
 from slugify import slugify
+
 from bulbs.components import db
 from bulbs.components.post import format_post
 

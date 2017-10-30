@@ -46,10 +46,13 @@ def response(request):
     cursor = db.con.cursor()
     cats = categories()
     subcats = list(subcategories())
+    cursor.execute("SELECT username FROM bulbs_user ORDER BY date DESC LIMIT 1")
+    newest_user = cursor.fetchone()[0]        
     
     return {
         "project": request.registry.settings.get("site_name"),
         "title": "Home",
         "categories": cats,
-        "subcategories": subcats
+        "subcategories": subcats,
+        "new_member": newest_user
     }
