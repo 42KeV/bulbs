@@ -1,4 +1,4 @@
-<%inherit file="base.mako"/>
+<%inherit file="base.mako"/>%>
 
 <%
     page = request.params.get("page")
@@ -65,7 +65,7 @@
                     <a href="#" class="button tiny">Quote</a>
                     
                     % if request.session.get("identity").get("username") == post.get("username"):
-                        <a href="#" class="button tiny">Edit</a>
+                        <a href="/edit?post=${post.get('id')}" class="button tiny">Edit</a>
                     % endif
                 % endif 
                 </section>  
@@ -76,12 +76,17 @@
                     <span class="post-date">${post.get("date")}</span>
                     <div id="#post-${post.get('id')}"></div>
                 
-                    <a class="poster-username" href="/user/${post.get('username')}">${post.get("username")}</a>
+                    <%
+                        # generate url safe usernames
+                        from urllib.parse import quote
+                    %>
+                
+                    <a class="poster-username" href="/user/${quote(post.get('username'))}">${post.get("username")}</a>
                     <span class="poster-title">${post.get("title")}</span>
                     
                     <span class="poster-avatar">
                         % if post.get("avatar") is not None:
-                            <img src="${post.get("avatar")}"/>
+                            <img src="${post.get('avatar')}"/>
                         % endif
                     </span>
                 </section>
@@ -100,3 +105,4 @@
     </div>
     % endfor
 </div>
+

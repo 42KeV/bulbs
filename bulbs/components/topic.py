@@ -8,9 +8,7 @@ from bulbs.components.post import format_post
 def append_id_to_slug(slug, id):
     if id == 0:
         return slug
-        
     id_slug = "{0}-{1}".format(slug, id)
-    
     return id_slug
 
 def create_topic(subject, content, subcategory_id, ip, username):
@@ -60,7 +58,6 @@ def thread_pages(thread_id):
             (thread_id, thread_id))
     total_rows = cursor.fetchone()[0]
     pages = int(total_rows / limit if total_rows % limit == 0  else (total_rows / limit) + 1)
-   
     return pages
 
 def number_of_replies(thread_id):
@@ -73,7 +70,6 @@ def number_of_replies(thread_id):
         replies = cursor.fetchone()[0]
     except ValueError as e:
         raise ValueError("failed to get amount of thread replies, ", e)
-
     return replies
     
 def number_of_views(thread_id):
@@ -85,7 +81,6 @@ def number_of_views(thread_id):
         views = cursor.fetchone()[0]
     except ValueError as e:
         raise ValueError("failed to get amount of thread views, ", e)
-        
     return views
     
     

@@ -1,10 +1,12 @@
 from pyramid.view import view_config
+from urllib.parse import unquote
 from bulbs.components import db
 
 
 @view_config(route_name="user_view", renderer="user.mako")
 def response(request):
-    username = request.matchdict.get("username")
+    username = unquote(request.matchdict.get("username"))
+    
     cursor = db.con.cursor()
     cursor.execute(
         "SELECT username, to_char(date, 'Mon FMDD, YYYY HH:MM AM'), karma, title, \

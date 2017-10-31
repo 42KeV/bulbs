@@ -6,6 +6,8 @@ from bulbs.components import helpers
 from bulbs.components.subcategory import subcat_title_from_id
 from bulbs.components.topic import thread_pages
 
+from urllib.parse import quote
+
 
 def userinfo(userid):
     """Return a dict containing profile information corresponding to the user id specified."""
@@ -16,7 +18,8 @@ def userinfo(userid):
     profile = list(cursor.fetchone())
     try:
         cursor.execute("SELECT count(*) FROM bulbs_post WHERE user_id = %s",
-                        (userid, ))
+            (userid, )
+        )
         postcount = cursor.fetchone()[0]
     except Exception as e:
         print (e)

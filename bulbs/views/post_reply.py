@@ -2,10 +2,11 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from bulbs.components import db
 from bulbs.components.reply import reply_to_topic
+from bulbs.components.topic import thread_pages
 
 @view_config(route_name='new-reply', renderer='new-reply.mako')
 def response(request):
-    ''' This view is called when someone is replying to a post '''
+    """This view is called when someone is replying to a post."""
     if request.session.get("identity") is None:
         url = request.route_url(
             "unauthorized",
@@ -54,9 +55,10 @@ def response(request):
             "topic",
             cat_slug=slugs["cat"],
             subcat_slug=slugs["subcat"],
-            topic_slug=slugs["topic"]
+            topic_slug=slugs["topic"],
+            _query=(("page", thread_pages(topic_id)),)
         )
-        
+
         return HTTPFound(location=url)
     
     cursor.execute("SELECT title FROM bulbs_Post WHERE id = %s", (topic_id, ))
