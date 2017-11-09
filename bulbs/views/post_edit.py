@@ -52,7 +52,7 @@ def response(request):
         url = request.route_url(
             "topic",
             cat_slug=cat_slug,
-            subcat_slug=cat_slug,
+            subcat_slug=subcat_slug,
             topic_slug=topic_slug,
             _query=(("page", thread_pages(topic_id)),)
         )

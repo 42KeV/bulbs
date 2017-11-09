@@ -2,7 +2,7 @@
 
 <br>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     <div class="row">
         <div class="large-4 columns">
             <label>New password
@@ -26,7 +26,7 @@
 
         <div class="large-4 columns">
             <label>Avatar
-                <input type="file" name="avatar"/>
+                <input id="avatar" type="file" name="avatar"/>
             </label>
         </div>
         

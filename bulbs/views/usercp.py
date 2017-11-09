@@ -3,6 +3,10 @@ from bulbs.components import db
 from pyramid.response import Response
 
 
+#def store_img_view(request):
+    
+
+
 @view_config(route_name="usercp", renderer="user-cp.mako")
 def response(request):
     ident = request.session.get("identity")
@@ -17,9 +21,11 @@ def response(request):
         state = request.params.get("state")
         email = request.params.get("email")
         bio = request.params.get("bio")
-        avatar = request.params.get("avatar")
+        avatar = request.params.get("avatar").filename
         current_password = request.params.get("current_password")
 
+        print (dir(avatar))
+        
         cursor = db.con.cursor()
 
         if current_password: # user wants to change password
@@ -39,7 +45,21 @@ def response(request):
             cursor.execute("UPDATE bulbs_user SET email = %s WHERE username = %s", (email, username))
         if bio:
             cursor.execute("UPDATE bulbs_user SET biography = %s WHERE username = %s", (bio, username))
+        
         if avatar:
+            import shutil
+            import uuid
+            import os
+            
+            filename = request.POST["avatar"].filename
+            input_file = request.POST["avatar"].file
+            file_path = os.path.join(os.path.curdir, "/tmp", filename)
+            
+            input_file.seek(0)
+            with open(file_path, "wb") as output_file:
+                shutil.copyfileobj(input_file, output_file)
+            
+            
             cursor.execute("UPDATE bulbs_user SET avatar = %s WHERE username = %s", (avatar, username))
             
         db.con.commit()
