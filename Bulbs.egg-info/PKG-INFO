@@ -6,9 +6,12 @@ Home-page: UNKNOWN
 Author: John Murphy
 Author-email: john@yepperx.ca
 License: UNKNOWN
-Description: ## What is Bulbs?
-        Bulbs is an open source message board developed in Python using the Pyramid Web Framework. 
+Description: 2. fix slug generation, delete special characters instead of replacing them with a space
+        3. prevent users from using forward slashes in usernames
         
+        
+        ## What is Bulbs?
+        Bulbs is an open source message board developed in Python using the Pyramid Web Framework. 
         
         ## Requirements
         * Python 3.4+
@@ -16,17 +19,11 @@ Description: ## What is Bulbs?
         * PostgreSQL
         
         ## How to install
+        * `pip install -r requirements.txt` will install bulbs' dependencies.
+        * `python setup.py develop` will install the bulbs' package.
+        * `pserve development.ini --reload` will start the server
+        * go to /install in your web browser to configure the database
         
-        * `pip install -r requirements.txt` - Install Bulbs' dependencies.
-        
-        * Clone the repository, `git clone https://github.com/CrystallineEntity/bulbs.git`
-        
-        `python setup.py develop` to install the package and dependencies
-        `pthon setup.py dbadmin` to configure database
-        
-        If nothing exploded, you should be ready to rock and roll
-        
-        `pserve development.ini --reload` to start the server in development mode and automatically reload files as you change them. It is not recommended to use the reload argument in production environments.
         
         
         0.0
