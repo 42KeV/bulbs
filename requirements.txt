@@ -1,7 +1,7 @@
 Mako==1.0.3
 MarkupSafe==0.23
 pycparser==2.14
-Pygments==2.1
+Pygments==2.7.4
 pyramid==1.8.1
 pyramid-beaker==0.8
 pyramid-mako==1.0.2
